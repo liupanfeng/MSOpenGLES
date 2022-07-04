@@ -5,6 +5,8 @@ file(GLOB file_all *.cpp  *.c)
 
 #引用头文件
 include_directories(opencv)
+include_directories(include)
+
 #指定库查找路径
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -L${CMAKE_SOURCE_DIR}/../jniLibs/${CMAKE_ANDROID_ARCH_ABI}/")
 
