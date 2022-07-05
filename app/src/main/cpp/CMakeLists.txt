@@ -24,7 +24,7 @@ target_link_libraries(
         assimp                  #一个解析3D模型的库
         freetype                #彻底开源的、可扩展、可定制且可移植的字体引擎
         opencv_java3            #图像人脸追踪 图片处理等
+        GLESv3                  #OpenGL ES 2.0版本
         EGL                     #自定义EGL FBO会用到这个
-        GLESv3                  #OpenGL ES 3.0版本
         android                 #ANativeWindow 使用这个库
         ${log-lib})
