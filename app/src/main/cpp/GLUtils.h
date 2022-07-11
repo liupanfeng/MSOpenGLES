@@ -6,7 +6,7 @@
 #include <GLES3/gl3.h>
 #include <string>
 
-#define SHADER_TO_STRING(s) #s
+#define GET_STR(x) #x
 
 #define MATH_PI 3.1415926535897932384626433832802
 
@@ -15,8 +15,8 @@ public:
     static GLuint LoadShader(GLenum shaderType, const char *pSource);
 
     static GLuint CreateProgram(const char *pVertexShaderSource, const char *pFragShaderSource,
-                                GLuint &vertexShaderHandle,
-                                GLuint &fragShaderHandle);
+                                GLuint &vertexShaderId,
+                                GLuint &fragShaderId);
 
     static GLuint CreateProgram(const char *pVertexShaderSource, const char *pFragShaderSource);
 

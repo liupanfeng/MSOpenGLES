@@ -4,12 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.PlayYUVActivity">
-    <com.example.msopengles.opengles.MSGLSurfaceView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-<!--     <com.example.msopengles.MSPlay-->
-<!--     android:layout_width="match_parent"-->
-<!--     android:layout_height="match_parent"/>-->
+    tools:context=".activity.ShowBitmapActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

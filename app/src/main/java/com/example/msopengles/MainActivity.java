@@ -5,13 +5,11 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.TextView;
 
+import com.example.msopengles.activity.CommonActivity;
+import com.example.msopengles.activity.PlayYUVActivity;
 import com.example.msopengles.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         mBinding.btnPlayYuv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,PlayYUVActivity.class));
+                CommonActivity.actionCommonActivity(MainActivity.this,1);
             }
         });
     }

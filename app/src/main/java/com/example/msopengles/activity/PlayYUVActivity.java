@@ -1,4 +1,4 @@
-package com.example.msopengles;
+package com.example.msopengles.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.example.msopengles.R;
 
 public class PlayYUVActivity extends AppCompatActivity {
 

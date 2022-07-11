@@ -6,10 +6,7 @@
 
 #include <EGL/egl.h>
 #include <GLES3/gl3.h>
-
-
-
-#define GET_STR(x) #x
+#include "GLUtils.h"
 
 
 /**
@@ -30,26 +27,7 @@ static const char*vertex_shader= GET_STR(
         });
 
 
-//片元着色器,软解码和部分x86硬解码
-static const char *fragment_shader1 = GET_STR(
-        precision mediump float;    //精度
-        varying vec2 vTexCoord;     //顶点着色器传递的坐标
-        uniform sampler2D yTexture; //输入的材质（不透明灰度，单像素）
-        uniform sampler2D uTexture;
-        uniform sampler2D vTexture;
-        void main(){
-            vec3 yuv;
-            vec3 rgb;
-            yuv.r = texture2D(yTexture,vTexCoord).r;
-            yuv.g = texture2D(uTexture,vTexCoord).r - 0.5;
-            yuv.b = texture2D(vTexture,vTexCoord).r - 0.5;
-            rgb = mat3(1.0,     1.0,    1.0,
-                       0.0,-0.39465,2.03211,
-                       1.13983,-0.58060,0.0)*yuv;
-            //输出像素颜色
-            gl_FragColor = vec4(rgb,1.0);
-        }
-);
+
 
 /**
  * 软解码和部分x86硬解码 得到的都是yuv420p （也就是是i420）
@@ -337,17 +315,17 @@ Java_com_example_msopengles_MSPlay_open(JNIEnv *env, jobject thiz, jstring path,
 
 
     for (int i = 0; i < 1000000; i++) {
-        //memset(buf[0],i,width*height);
-        // memset(buf[1],i,width*height/4);
-        //memset(buf[2],i,width*height/4);
+        memset(buf[0],i,width*height);
+         memset(buf[1],i,width*height/4);
+        memset(buf[2],i,width*height/4);
 
         //420p   yyyyyyyy uu vv
-        if (feof(fp) == 0) {
-            //yyyyyyyy
-            fread(buf[0], 1, width * height, fp);
-            fread(buf[1], 1, width * height / 4, fp);
-            fread(buf[2], 1, width * height / 4, fp);
-        }
+//        if (feof(fp) == 0) {
+//            //yyyyyyyy
+//            fread(buf[0], 1, width * height, fp);
+//            fread(buf[1], 1, width * height / 4, fp);
+//            fread(buf[2], 1, width * height / 4, fp);
+//        }
 
 
 

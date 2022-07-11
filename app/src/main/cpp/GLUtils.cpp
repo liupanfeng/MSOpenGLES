@@ -35,32 +35,38 @@ GLuint GLUtils::LoadShader(GLenum shaderType, const char *pSource)
     return shader;
 }
 
-GLuint GLUtils::CreateProgram(const char *pVertexShaderSource, const char *pFragShaderSource, GLuint &vertexShaderHandle, GLuint &fragShaderHandle)
+GLuint GLUtils::CreateProgram(const char *pVertexShaderSource, const char *pFragShaderSource, GLuint &vertexShaderId, GLuint &fragShaderId)
 {
     GLuint program = 0;
-    vertexShaderHandle = LoadShader(GL_VERTEX_SHADER, pVertexShaderSource);
-    if (!vertexShaderHandle) return program;
+    /*加载定点着色器*/
+    vertexShaderId = LoadShader(GL_VERTEX_SHADER, pVertexShaderSource);
+    if (!vertexShaderId) return program;
+    /*加载片段着色器*/
+    fragShaderId = LoadShader(GL_FRAGMENT_SHADER, pFragShaderSource);
+    if (!fragShaderId) return program;
 
-    fragShaderHandle = LoadShader(GL_FRAGMENT_SHADER, pFragShaderSource);
-    if (!fragShaderHandle) return program;
-
+    /*创建程序*/
     program = glCreateProgram();
     if (program)
     {
-        glAttachShader(program, vertexShaderHandle);
+        /*将定点 交给程序*/
+        glAttachShader(program, vertexShaderId);
         CheckGLError("glAttachShader");
-        glAttachShader(program, fragShaderHandle);
+        /*将片段数据 交给程序*/
+        glAttachShader(program, fragShaderId);
         CheckGLError("glAttachShader");
+        /*链接程序*/
         glLinkProgram(program);
         GLint linkStatus = GL_FALSE;
         glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
 
-        glDetachShader(program, vertexShaderHandle);
-        glDeleteShader(vertexShaderHandle);
-        vertexShaderHandle = 0;
-        glDetachShader(program, fragShaderHandle);
-        glDeleteShader(fragShaderHandle);
-        fragShaderHandle = 0;
+        /*链接完程序 删除 定点着色器和片段着色器*/
+        glDetachShader(program, vertexShaderId);
+        glDeleteShader(vertexShaderId);
+        vertexShaderId = 0;
+        glDetachShader(program, fragShaderId);
+        glDeleteShader(fragShaderId);
+        fragShaderId = 0;
         if (linkStatus != GL_TRUE)
         {
             GLint bufLength = 0;

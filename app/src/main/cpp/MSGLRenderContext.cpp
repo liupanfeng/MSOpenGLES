@@ -1,8 +1,6 @@
 //
 // Created by ms on 2022/7/5.
 //
-
-
 #include "ImageDef.h"
 #include "TriangleSample.h"
 #include "MSGLRenderContext.h"
@@ -46,7 +44,9 @@ void MSGLRenderContext::SetImageData(int format, int width, int height, uint8_t 
     //m_TextureMapSample->LoadImage(&nativeImage);
 
 }
-
+/**
+ *  初始化画布 调用init
+ */
 void MSGLRenderContext::OnSurfaceCreated()
 {
     LOGD("MSGLRenderContext::OnSurfaceCreated");
@@ -57,6 +57,7 @@ void MSGLRenderContext::OnSurfaceCreated()
 void MSGLRenderContext::OnSurfaceChanged(int width, int height)
 {
     LOGD("MSGLRenderContext::OnSurfaceChanged [w, h] = [%d, %d]", width, height);
+    /*宽高 变化了更新视口*/
     glViewport(0, 0, width, height);
 }
 
@@ -64,10 +65,7 @@ void MSGLRenderContext::OnDrawFrame()
 {
     LOGD("MSGLRenderContext::OnDrawFrame");
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-
     m_Sample.Draw();
-
-
 }
 
 MSGLRenderContext *MSGLRenderContext::GetInstance()
