@@ -14,16 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MSOpenGLES">
         <activity
-            android:name=".activity.ShowBitmapActivity"
-            android:exported="false" />
-        <activity
-            android:name=".BaseActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.CommonActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.PlayYUVActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

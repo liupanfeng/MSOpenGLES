@@ -8,10 +8,11 @@
 #include <GLES3/gl3.h>
 #include "GLUtils.h"
 #include "android_log_util.h"
+#include "BaseSample.h"
 
 
+class TriangleSample : BaseSample {
 
-class TriangleSample {
 public:
     GLuint m_ProgramObj;
     GLuint m_VertexShader;

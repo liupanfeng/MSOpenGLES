@@ -1,15 +1,15 @@
 package com.example.msopengles;
 
+import static com.example.msopengles.utils.Constants.*;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.msopengles.activity.CommonActivity;
-import com.example.msopengles.activity.PlayYUVActivity;
 import com.example.msopengles.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +38,14 @@ public class MainActivity extends AppCompatActivity {
         mBinding.btnPlayYuv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CommonActivity.actionCommonActivity(MainActivity.this,1);
+                CommonActivity.actionCommonActivity(MainActivity.this,SAMPLE_TYPE_TRIANGLE);
+            }
+        });
+
+        mBinding.btnShowBitmap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommonActivity.actionCommonActivity(MainActivity.this,SAMPLE_TYPE_SHOW_BITMAP);
             }
         });
     }

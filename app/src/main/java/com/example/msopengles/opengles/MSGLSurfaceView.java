@@ -24,7 +24,7 @@ public class MSGLSurfaceView extends GLSurfaceView {
     public MSGLSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setEGLContextClientVersion(3);
-//        setEGLConfigChooser(8, 8, 8, 8, 16, 8);
+        setEGLConfigChooser(8, 8, 8, 8, 16, 8);
         mNativeRender = new MSNativeRender();
         setRenderer(mNativeRender);
         setRenderMode(RENDERMODE_CONTINUOUSLY);

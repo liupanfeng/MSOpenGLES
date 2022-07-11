@@ -22,10 +22,10 @@ Java_com_example_msopengles_opengles_MSNativeRender_native_1OnUnInit(JNIEnv *env
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_msopengles_opengles_MSNativeRender_native_1SetImageData(JNIEnv *env, jobject thiz,
-                                                                         jint format, jint width,
-                                                                         jint height,
-                                                                         jbyteArray imageData) {
+Java_com_example_msopengles_opengles_MSNativeRender_native_1set_1bitmap_1data(JNIEnv *env, jobject thiz,
+                                                                              jint format, jint width,
+                                                                              jint height,
+                                                                              jbyteArray imageData) {
     int len = env->GetArrayLength (imageData);
     uint8_t* buf = new uint8_t[len];
     env->GetByteArrayRegion(imageData, 0, len, reinterpret_cast<jbyte*>(buf));

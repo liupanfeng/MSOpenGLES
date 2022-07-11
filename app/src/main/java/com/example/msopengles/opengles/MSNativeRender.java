@@ -23,7 +23,7 @@ public class MSNativeRender implements GLSurfaceView.Renderer {
 
     public native void native_OnUnInit();
 
-    public native void native_SetImageData(int format, int width, int height, byte[] bytes);
+    public native void native_set_bitmap_data(int format, int width, int height, byte[] bytes);
 
     public native void native_OnSurfaceCreated();
 
@@ -48,4 +48,20 @@ public class MSNativeRender implements GLSurfaceView.Renderer {
         Log.d(TAG, "onDrawFrame() called with: gl = [" + gl10 + "]");
         native_OnDrawFrame();
     }
+
+    /**
+     * 设置bitmap数据
+     * @param imageFormatRgba
+     * @param width
+     * @param height
+     * @param array
+     */
+    public void setBitmapData(int imageFormatRgba, int width, int height, byte[] array) {
+        native_set_bitmap_data(imageFormatRgba,width,height,array);
+    }
+
+
+
+
+
 }
