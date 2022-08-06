@@ -41,7 +41,7 @@ void MSGLRenderContext::SetImageData(int format, int width, int height, uint8_t 
             break;
     }
 
-    m_TextureMapSample->LoadImage(&nativeImage);
+//    m_TextureMapSample->LoadImage(&nativeImage);
 
 }
 /**
