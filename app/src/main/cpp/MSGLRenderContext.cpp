@@ -53,7 +53,11 @@ void MSGLRenderContext::OnSurfaceCreated()
     glClearColor(0.0f,0.0f,1.0f, 1.0f);
     m_Sample.Init();
 }
-
+/**
+ * 连接状态发生变化之后 更改视口
+ * @param width
+ * @param height
+ */
 void MSGLRenderContext::OnSurfaceChanged(int width, int height)
 {
     LOGD("MSGLRenderContext::OnSurfaceChanged [w, h] = [%d, %d]", width, height);

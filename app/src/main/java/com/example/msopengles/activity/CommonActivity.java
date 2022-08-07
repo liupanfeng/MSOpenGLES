@@ -35,7 +35,7 @@ public class CommonActivity extends AppCompatActivity {
         mBinding = ActivityCommonBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
         mMSGLSurfaceView = mBinding.msGlSurfaceView;
-         mNativeRender = mMSGLSurfaceView.getNativeRender();
+        mNativeRender = mMSGLSurfaceView.getNativeRender();
         initData();
     }
 

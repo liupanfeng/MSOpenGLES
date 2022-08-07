@@ -12,6 +12,9 @@ import android.view.View;
 import com.example.msopengles.activity.CommonActivity;
 import com.example.msopengles.databinding.ActivityMainBinding;
 
+/**
+ * 菜单页面
+ */
 public class MainActivity extends AppCompatActivity {
 
     static {
@@ -34,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
         initListener();
     }
 
+    /**
+     * 设置监听事件
+     */
     private void initListener() {
         mBinding.btnPlayYuv.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -20,6 +20,7 @@ public class Constants {
 
     public static final int SAMPLE_TYPE  =  100;
 
+    /*绘制三角形*/
     public static final int SAMPLE_TYPE_TRIANGLE                   = SAMPLE_TYPE;
     public static final int SAMPLE_TYPE_SHOW_BITMAP                = SAMPLE_TYPE+1;
 

@@ -23,10 +23,15 @@ public class MSGLSurfaceView extends GLSurfaceView {
 
     public MSGLSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        /*设置EGL 版本号*/
         this.setEGLContextClientVersion(3);
+        /*设置EGL，给出条件 让系统选择一个合适的*/
         setEGLConfigChooser(8, 8, 8, 8, 16, 8);
+        /*初始化render*/
         mNativeRender = new MSNativeRender();
+        /*GLSurfaceView设置render*/
         setRenderer(mNativeRender);
+        /*设置render模式为自动模式  耗性能  RENDERMODE_WHEN_DIRTY：通知刷新才会刷新 这里是demo 就使用自动模式了*/
         setRenderMode(RENDERMODE_CONTINUOUSLY);
     }
 
