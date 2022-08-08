@@ -15,7 +15,7 @@ import javax.microedition.khronos.opengles.GL10;
  * @Copyright: www.meishesdk.com Inc. All rights reserved.
  */
 
-public class MSNativeRender implements GLSurfaceView.Renderer {
+public class MSNativeRender {
 
     private static final String TAG = "MyGLSurfaceView";
 
@@ -31,37 +31,6 @@ public class MSNativeRender implements GLSurfaceView.Renderer {
 
     public native void native_OnDrawFrame();
 
-    @Override
-    public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
-        Log.d(TAG, "onSurfaceCreated() called with: gl = [" + gl10 + "], config = [" + eglConfig + "]");
-        native_OnSurfaceCreated();
-    }
 
-    @Override
-    public void onSurfaceChanged(GL10 gl10, int width, int height) {
-        Log.d(TAG, "onSurfaceChanged() called with: gl = [" + gl10 + "], width = [" + width + "], height = [" + height + "]");
-        native_OnSurfaceChanged(width, height);
-    }
-
-    @Override
-    public void onDrawFrame(GL10 gl10) {
-        Log.d(TAG, "onDrawFrame() called with: gl = [" + gl10 + "]");
-        native_OnDrawFrame();
-    }
-
-    /**
-     * 设置bitmap数据
-     * @param imageFormatRgba
-     * @param width
-     * @param height
-     * @param array
-     */
-    public void setBitmapData(int imageFormatRgba, int width, int height, byte[] array) {
-        native_set_bitmap_data(imageFormatRgba,width,height,array);
-    }
-
-
-
-
-
+    public native void native_SetParamsInt(int paramType, int value0, int value1);
 }

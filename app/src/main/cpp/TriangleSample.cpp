@@ -54,7 +54,11 @@ void TriangleSample::Init() {
 
 }
 
-void TriangleSample::Draw() {
+void TriangleSample::LoadImage(NativeImage *pImage) {
+
+}
+
+void TriangleSample::Draw(int screenW, int screenH) {
     LOGD("TriangleSample::Draw");
     GLfloat vVertices[] = {
             0.0f, 0.5f, 0.0f,
@@ -78,6 +82,11 @@ void TriangleSample::Draw() {
 
     /*绘制三角形*/
     glDrawArrays(GL_TRIANGLES, 0, 3);
+}
+
+void TriangleSample::Destroy() {
 
 }
+
+
 

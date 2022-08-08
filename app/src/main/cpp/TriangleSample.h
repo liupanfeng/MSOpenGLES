@@ -8,23 +8,20 @@
 #include <GLES3/gl3.h>
 #include "GLUtils.h"
 #include "android_log_util.h"
+#include "GLSampleBase.h"
 
 
+class TriangleSample  : public GLSampleBase{
 
-class TriangleSample  {
-
-public:
-    GLuint m_ProgramObj;
-    GLuint m_VertexShader;
-    GLuint m_FragmentShader;
 
 public:
     TriangleSample();
-    ~TriangleSample();
+    virtual ~TriangleSample();
 
-public:
-    void Init();
-    void Draw();
+    virtual void LoadImage(NativeImage *pImage);
+    virtual void Init();
+    virtual void Draw(int screenW, int screenH);
+    virtual void Destroy();
 
 };
 

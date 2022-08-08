@@ -7,6 +7,7 @@
 #include <EGL/egl.h>
 #include <GLES3/gl3.h>
 #include "GLUtils.h"
+#include "MSGLRenderContext.h"
 
 
 /**
@@ -365,3 +366,6 @@ Java_com_example_msopengles_MSPlay_open(JNIEnv *env, jobject thiz, jstring path,
 
     env->ReleaseStringUTFChars(path, _path);
 }
+
+
+

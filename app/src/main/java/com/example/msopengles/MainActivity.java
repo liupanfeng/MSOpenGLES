@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         mBinding.btnShowBitmap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CommonActivity.actionCommonActivity(MainActivity.this,SAMPLE_TYPE_SHOW_BITMAP);
+                CommonActivity.actionCommonActivity(MainActivity.this,SAMPLE_TYPE_TEXTURE_MAP);
             }
         });
     }

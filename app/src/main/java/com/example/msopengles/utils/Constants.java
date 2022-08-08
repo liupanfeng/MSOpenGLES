@@ -18,11 +18,15 @@ public class Constants {
 
 
 
-    public static final int SAMPLE_TYPE  =  100;
-
+    public static final int SAMPLE_TYPE  =  200;
     /*绘制三角形*/
-    public static final int SAMPLE_TYPE_TRIANGLE                   = SAMPLE_TYPE;
-    public static final int SAMPLE_TYPE_SHOW_BITMAP                = SAMPLE_TYPE+1;
+    public static final int SAMPLE_TYPE_TRIANGLE                = SAMPLE_TYPE;
+    public static final int SAMPLE_TYPE_TEXTURE_MAP             = SAMPLE_TYPE + 1;
+    public static final int SAMPLE_TYPE_YUV_TEXTURE_MAP         = SAMPLE_TYPE + 2;
+    public static final int SAMPLE_TYPE_VAO                     = SAMPLE_TYPE + 3;
+    public static final int SAMPLE_TYPE_FBO                     = SAMPLE_TYPE + 4;
+    public static final int SAMPLE_TYPE_EGL                     = SAMPLE_TYPE + 5;
+    public static final int SAMPLE_TYPE_FBO_LEG                 = SAMPLE_TYPE + 6;
 
 
 

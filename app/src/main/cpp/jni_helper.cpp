@@ -58,3 +58,15 @@ JNIEXPORT void JNICALL
 Java_com_example_msopengles_opengles_MSNativeRender_native_1OnDrawFrame(JNIEnv *env, jobject thiz) {
     MSGLRenderContext::GetInstance()->OnDrawFrame();
 }
+
+/**
+ * 设置Int参数
+ */
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_example_msopengles_opengles_MSNativeRender_native_1SetParamsInt(JNIEnv *env, jobject thiz,
+                                                                         jint param_type,
+                                                                         jint value0, jint value1) {
+
+    MSGLRenderContext::GetInstance()->SetParamsInt(param_type, value0, value1);
+}

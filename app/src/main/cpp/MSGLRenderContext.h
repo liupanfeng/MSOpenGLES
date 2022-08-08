@@ -6,6 +6,7 @@
 #define MSOPENGLES_MSGLRENDERCONTEXT_H
 
 #include "TriangleSample.h"
+#include "GLSampleBase.h"
 
 class MSGLRenderContext {
 public:
@@ -20,8 +21,16 @@ public:
     static MSGLRenderContext * GetInstance();
     static void DestroyInstance();
 
+    void SetParamsInt(int paramType, int value0, int value1);
+
+
+
+private:
     static MSGLRenderContext *m_pContext;
-    TriangleSample m_Sample;
+    GLSampleBase *m_pCurSample;
+    GLSampleBase *m_pBeforeSample;
+    int m_ScreenW;
+    int m_ScreenH;
 };
 
 
