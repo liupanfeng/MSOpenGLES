@@ -9,6 +9,10 @@
 #include "ImageDef.h"
 #include "stdint.h"
 
+#define VERTEX_SHADER_TYPE                             100
+#define FRAGMENT_SHADER_TYPE                           101
+
+
 #define SAMPLE_TYPE                             200
 #define SAMPLE_TYPE_KEY_TRIANGLE                SAMPLE_TYPE + 0
 #define SAMPLE_TYPE_KEY_TEXTURE_MAP             SAMPLE_TYPE + 1
@@ -24,7 +28,6 @@ public:
         m_ProgramObj = 0;
         m_VertexShader = 0;
         m_FragmentShader = 0;
-
         m_SurfaceWidth = 0;
         m_SurfaceHeight = 0;
     }
@@ -41,11 +44,26 @@ public:
      * @param screenH
      */
     virtual void Draw(int screenW, int screenH) = 0;
-    virtual void Destroy();
+    /*如果只有头文件  必须写{}*/
+    virtual void Destroy(){}
+
+     void setVertexShader(const char* shader){
+//        this->vShaderStr=shader;  不能使用浅浅拷贝 方便释放可能会造成悬空指针
+        this->vShaderStr=new char [strlen(shader)+1];
+        strcpy(this->vShaderStr,shader);
+    }
+
+     void setFragmentShader(const char* shader){
+//        this->fShaderStr=shader;
+        this->fShaderStr=new char[strlen(shader)+1];
+         strcpy(this->fShaderStr,shader);
+    }
 
 protected:
     GLuint m_VertexShader;
     GLuint m_FragmentShader;
+    char* vShaderStr=0;
+    char* fShaderStr=0;
     GLuint m_ProgramObj;
     int m_SurfaceWidth;
     int m_SurfaceHeight;

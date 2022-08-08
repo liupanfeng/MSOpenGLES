@@ -8,11 +8,12 @@
 #include "ImageDef.h"
 #include <GLES3/gl3.h>
 #include "GLUtils.h"
+#include "GLSampleBase.h"
 
 /**
  * 纹理映射
  */
-class TextureMapSample {
+class TextureMapSample : public GLSampleBase {
 public:
     TextureMapSample();
     ~TextureMapSample();
@@ -26,14 +27,10 @@ public:
     virtual void Destroy();
 
 private:
-    GLuint m_TextureId;
-    GLuint m_VertexShader;
-    GLuint m_FragmentShader;
-
 
     GLint m_SamplerLoc;
     NativeImage m_RenderImage;
-    GLuint m_ProgramObj;
+    GLuint m_TextureId;
 };
 
 

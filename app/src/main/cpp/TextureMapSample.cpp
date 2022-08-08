@@ -19,6 +19,7 @@ void TextureMapSample::LoadImage(NativeImage *pImage) {
         m_RenderImage.width = pImage->width;
         m_RenderImage.height = pImage->height;
         m_RenderImage.format = pImage->format;
+        /*将数据从pImage 拷贝到m_RenderImage*/
         NativeImageUtil::CopyNativeImage(pImage, &m_RenderImage);
     }
 }
@@ -37,29 +38,10 @@ void TextureMapSample::Init() {
 
     glBindTexture(GL_TEXTURE_2D, GL_NONE);
 
-    char vShaderStr[] =
-            "#version 300 es                            \n"
-            "layout(location = 0) in vec4 a_position;   \n"
-            "layout(location = 1) in vec2 a_texCoord;   \n"
-            "out vec2 v_texCoord;                       \n"
-            "void main()                                \n"
-            "{                                          \n"
-            "   gl_Position = a_position;               \n"
-            "   v_texCoord = a_texCoord;                \n"
-            "}                                          \n";
 
-
-    char fShaderStr[] =
-            "#version 300 es                                     \n"
-            "precision mediump float;                            \n"
-            "in vec2 v_texCoord;                                 \n"
-            "layout(location = 0) out vec4 outColor;             \n"
-            "uniform sampler2D s_TextureMap;                     \n"
-            "void main()                                         \n"
-            "{                                                   \n"
-            "  outColor = texture(s_TextureMap, v_texCoord);     \n"
-            "  //outColor = texelFetch(s_TextureMap,  ivec2(int(v_texCoord.x * 404.0), int(v_texCoord.y * 336.0)), 0);\n"
-            "}                                                   \n";
+    /*输出shader 日志  shader 写错了，很容易出问题 */
+    LOGE("vShaderStr======%s",vShaderStr);
+    LOGE("fShaderStr======%s",fShaderStr);
 
     m_ProgramObj = GLUtils::CreateProgram(vShaderStr, fShaderStr, m_VertexShader, m_FragmentShader);
     if (m_ProgramObj)
@@ -80,14 +62,23 @@ void TextureMapSample::Draw(int screenW, int screenH) {
     }
     glClear(GL_STENCIL_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(1.0, 1.0, 1.0, 1.0);
+//    GLfloat verticesCoords[] = {
+//            -1.0f,  0.5f, 0.0f,  // Position 0
+//            -1.0f, -0.5f, 0.0f,  // Position 1
+//            1.0f, -0.5f, 0.0f,   // Position 2
+//            1.0f,  0.5f, 0.0f,   // Position 3
+//    };
+
+
+    /*控制的是渲染区域*/
     GLfloat verticesCoords[] = {
-            -1.0f,  0.5f, 0.0f,  // Position 0
-            -1.0f, -0.5f, 0.0f,  // Position 1
-            1.0f, -0.5f, 0.0f,   // Position 2
-            1.0f,  0.5f, 0.0f,   // Position 3
+            -1.0f,  1.0f, 0.0f,  // Position 0
+            -1.0f, -1.0f, 0.0f,  // Position 1
+            1.0f, -1.0f, 0.0f,   // Position 2
+            1.0f,  1.0f, 0.0f,   // Position 3
     };
 
-
+    /*纹理坐标系*/
     GLfloat textureCoords[] = {
             0.0f,  0.0f,        // TexCoord 0
             0.0f,  1.0f,        // TexCoord 1

@@ -22,13 +22,18 @@ Java_com_example_msopengles_opengles_MSNativeRender_native_1OnUnInit(JNIEnv *env
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_msopengles_opengles_MSNativeRender_native_1set_1bitmap_1data(JNIEnv *env, jobject thiz,
-                                                                              jint format, jint width,
+Java_com_example_msopengles_opengles_MSNativeRender_native_1set_1bitmap_1data(JNIEnv *env,
+                                                                              jobject thiz,
+                                                                              jint format,
+                                                                              jint width,
                                                                               jint height,
                                                                               jbyteArray imageData) {
-    int len = env->GetArrayLength (imageData);
-    uint8_t* buf = new uint8_t[len];
-    env->GetByteArrayRegion(imageData, 0, len, reinterpret_cast<jbyte*>(buf));
+    /*获取bitmap数据的长度*/
+    int len = env->GetArrayLength(imageData);
+    /*将数据拷贝到buffer里边 */
+    uint8_t *buf = new uint8_t[len];
+    env->GetByteArrayRegion(imageData, 0, len, reinterpret_cast<jbyte *>(buf));
+
     MSGLRenderContext::GetInstance()->SetImageData(format, width, height, buf);
     delete[] buf;
     env->DeleteLocalRef(imageData);
@@ -69,4 +74,20 @@ Java_com_example_msopengles_opengles_MSNativeRender_native_1SetParamsInt(JNIEnv 
                                                                          jint value0, jint value1) {
 
     MSGLRenderContext::GetInstance()->SetParamsInt(param_type, value0, value1);
+}
+
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_example_msopengles_opengles_MSNativeRender_native_1SetParamsString(JNIEnv *env,
+                                                                            jobject thiz,
+                                                                            jint param_type,
+                                                                            jint value0,
+                                                                            jstring value1) {
+    /*jni 转换 char * */
+    const char* content=env->GetStringUTFChars(value1,JNI_OK);
+    MSGLRenderContext::GetInstance()->SetParamsCharArray(param_type,value0,content);
+    /*释放指针*/
+    env->ReleaseStringUTFChars(value1,content);
+
 }

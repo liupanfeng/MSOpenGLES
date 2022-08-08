@@ -14,7 +14,7 @@ import com.example.msopengles.R;
 import com.example.msopengles.databinding.ActivityCommonBinding;
 import com.example.msopengles.opengles.MSGLRender;
 import com.example.msopengles.opengles.MSGLSurfaceView;
-import com.example.msopengles.opengles.MSNativeRender;
+import com.example.msopengles.utils.TextResourceReader;
 
 import java.nio.ByteBuffer;
 
@@ -35,9 +35,9 @@ public class CommonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mBinding = ActivityCommonBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
-        initData();
         mMSGLSurfaceView = mBinding.msGlSurfaceView;
         mMSGLRender = mMSGLSurfaceView.getNativeRender();
+        initData();
     }
 
     private void initData() {
@@ -47,20 +47,22 @@ public class CommonActivity extends AppCompatActivity {
         }
         mMSGLRender.setParamsInt(SAMPLE_TYPE, mType, 0);
 
-        mMSGLSurfaceView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                switch (mType){
-                    case SAMPLE_TYPE_TRIANGLE:
-//                        mMSGLRender.onDrawTriangleSample();
-                        break;
-                    case SAMPLE_TYPE_TEXTURE_MAP:
-                        loadRGBABitmap(R.mipmap.test);
-                        break;
-                }
 
-            }
-        },200);
+        switch (mType){
+            case SAMPLE_TYPE_TRIANGLE:
+                String vertexShader = TextResourceReader.readTextFileFromResource(this, R.raw.vertex_triangle);
+                String fragmentShader = TextResourceReader.readTextFileFromResource(this, R.raw.fragment_triangle);
+                mMSGLRender.setParamsString(SAMPLE_TYPE, SAMPLE_TYPE_VERTEX_SHADER, vertexShader);
+                mMSGLRender.setParamsString(SAMPLE_TYPE, SAMPLE_TYPE_FRAGMENT_SHADER, fragmentShader);
+                break;
+            case SAMPLE_TYPE_TEXTURE_MAP:
+                 vertexShader = TextResourceReader.readTextFileFromResource(this, R.raw.vertext_texture_map);
+                 fragmentShader = TextResourceReader.readTextFileFromResource(this, R.raw.fragment_texture_map);
+                mMSGLRender.setParamsString(SAMPLE_TYPE, SAMPLE_TYPE_VERTEX_SHADER, vertexShader);
+                mMSGLRender.setParamsString(SAMPLE_TYPE, SAMPLE_TYPE_FRAGMENT_SHADER, fragmentShader);
+                loadRGBABitmap(R.mipmap.test);
+                break;
+        }
 
     }
 

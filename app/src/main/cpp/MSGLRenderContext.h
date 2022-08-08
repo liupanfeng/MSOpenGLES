@@ -7,6 +7,10 @@
 
 #include "TriangleSample.h"
 #include "GLSampleBase.h"
+#include "ImageDef.h"
+#include "android_log_util.h"
+#include "TriangleSample.h"
+#include "TextureMapSample.h"
 
 class MSGLRenderContext {
 public:
@@ -23,12 +27,17 @@ public:
 
     void SetParamsInt(int paramType, int value0, int value1);
 
+    void  SetParamsCharArray(int paramType,int value0 ,const char* value1);
 
 
 private:
     static MSGLRenderContext *m_pContext;
-    GLSampleBase *m_pCurSample;
+    /*给默认值是绘制三角形*/
+    GLSampleBase *m_pCurSample = new TriangleSample();
     GLSampleBase *m_pBeforeSample;
+
+
+
     int m_ScreenW;
     int m_ScreenH;
 };

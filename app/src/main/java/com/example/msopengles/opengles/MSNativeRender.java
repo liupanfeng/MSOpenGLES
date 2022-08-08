@@ -23,6 +23,7 @@ public class MSNativeRender {
 
     public native void native_OnUnInit();
 
+    /*将bitmap数据 通过纹理 映射到surfaceView上*/
     public native void native_set_bitmap_data(int format, int width, int height, byte[] bytes);
 
     public native void native_OnSurfaceCreated();
@@ -33,4 +34,6 @@ public class MSNativeRender {
 
 
     public native void native_SetParamsInt(int paramType, int value0, int value1);
+
+    public native void native_SetParamsString(int paramType, int value0, String value1);
 }

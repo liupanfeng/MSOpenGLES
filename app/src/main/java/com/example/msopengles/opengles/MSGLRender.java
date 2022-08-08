@@ -64,6 +64,13 @@ public class MSGLRender implements GLSurfaceView.Renderer {
         mMSNativeRender.native_SetParamsInt(paramType, value0, value1);
     }
 
+    public void setParamsString(int paramType, int value0, String value1) {
+        if (paramType == Constants.SAMPLE_TYPE) {
+            mSampleType = value0;
+        }
+        mMSNativeRender.native_SetParamsString(paramType, value0, value1);
+    }
+
 
 
 

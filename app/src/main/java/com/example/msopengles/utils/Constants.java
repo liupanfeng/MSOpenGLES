@@ -30,4 +30,14 @@ public class Constants {
 
 
 
+    /*顶点着色器*/
+    public static final int SAMPLE_TYPE_VERTEX_SHADER                 = 100;
+    /*片段着色器*/
+    public static final int SAMPLE_TYPE_FRAGMENT_SHADER               = 101;
+
+
+
+
+
+
 }

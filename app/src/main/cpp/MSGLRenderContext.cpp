@@ -1,10 +1,8 @@
 //
 // Created by ms on 2022/7/5.
 //
-#include "ImageDef.h"
-#include "TriangleSample.h"
+
 #include "MSGLRenderContext.h"
-#include "android_log_util.h"
 
 MSGLRenderContext* MSGLRenderContext::m_pContext = nullptr;
 
@@ -43,7 +41,7 @@ void MSGLRenderContext::SetImageData(int format, int width, int height, uint8_t 
             break;
     }
 
-//    m_TextureMapSample->LoadImage(&nativeImage);
+    m_pCurSample->LoadImage(&nativeImage);
 
 }
 /**
@@ -129,11 +127,34 @@ void MSGLRenderContext::SetParamsInt(int paramType, int value0, int value1) {
                 m_pCurSample = new TriangleSample();
                 break;
             case SAMPLE_TYPE_KEY_TEXTURE_MAP:
-
+                m_pCurSample = new TextureMapSample();
                 break;
 
         }
     }
 
 }
+
+/**
+ * 设置 char 数组参数
+ * @param paramType 参数的类型
+ * @param value0
+ * @param value1  char* 类型参数数据
+ */
+void MSGLRenderContext::SetParamsCharArray(int paramType, int value0, const char* value1) {
+    if (paramType == SAMPLE_TYPE){
+        if (value0==VERTEX_SHADER_TYPE){
+            if (m_pCurSample){
+                m_pCurSample->setVertexShader(value1);
+            }
+        }else if (value0==FRAGMENT_SHADER_TYPE){
+            if (m_pCurSample){
+                m_pCurSample->setFragmentShader(value1);
+            }
+        }
+
+    }
+}
+
+
 

@@ -12,6 +12,7 @@ package com.example.msopengles.opengles;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
+import android.util.Log;
 
 public class MSGLSurfaceView extends GLSurfaceView {
 
@@ -30,6 +31,7 @@ public class MSGLSurfaceView extends GLSurfaceView {
         setEGLConfigChooser(8, 8, 8, 8, 16, 8);
         /*初始化render*/
         mMSGLRender = new MSGLRender();
+        Log.e("lpf","完成初始化mMSGLRender -----");
         /*GLSurfaceView设置render*/
         setRenderer(mMSGLRender);
         /*设置render模式为自动模式  耗性能  RENDERMODE_WHEN_DIRTY：通知刷新才会刷新 这里是demo 就使用自动模式了*/
@@ -37,6 +39,7 @@ public class MSGLSurfaceView extends GLSurfaceView {
     }
 
     public MSGLRender getNativeRender() {
+        Log.e("lpf","获取 mMSGLRender ----");
         return mMSGLRender;
     }
 }
