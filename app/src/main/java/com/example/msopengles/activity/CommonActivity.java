@@ -78,5 +78,9 @@ public class CommonActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mMSGLRender.unInit();
+    }
 }

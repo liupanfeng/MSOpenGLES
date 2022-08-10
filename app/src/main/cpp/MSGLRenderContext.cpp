@@ -15,7 +15,17 @@ MSGLRenderContext::MSGLRenderContext()
 
 MSGLRenderContext::~MSGLRenderContext()
 {
+    if (m_pCurSample)
+    {
+        delete m_pCurSample;
+        m_pCurSample = nullptr;
+    }
 
+    if (m_pBeforeSample)
+    {
+        delete m_pBeforeSample;
+        m_pBeforeSample = nullptr;
+    }
 }
 
 void MSGLRenderContext::SetImageData(int format, int width, int height, uint8_t *pData)
