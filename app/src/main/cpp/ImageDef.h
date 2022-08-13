@@ -53,7 +53,11 @@ struct NativeImage
 	int width;
 	int height;
 	int format;
+	/*
+	 * NativeImage 一个结构体:保存了width height format 以及yuv三个平面
+ 	* */
 	uint8_t *ppPlane[3];
+
 
 	NativeImage()
 	{

@@ -33,23 +33,6 @@ TriangleSample::~TriangleSample() {
  * 使用顶点着色器和片段着色器 初始化并链接程序
  */
 void TriangleSample::Init() {
-//    char * vShaderStr_ =
-//            "#version 300 es                          \n"
-//            "layout(location = 0) in vec4 vPosition;  \n"
-//            "void main()                              \n"
-//            "{                                        \n"
-//            "   gl_Position = vPosition;              \n"
-//            "}                                        \n";
-//
-//    char* fShaderStr_ =
-//            "#version 300 es                              \n"
-//            "precision mediump float;                     \n"
-//            "out vec4 fragColor;                          \n"
-//            "void main()                                  \n"
-//            "{                                            \n"
-//            "   fragColor = vec4 ( 1.0, 0.0, 0.0, 1.0 );  \n"
-//            "}                                            \n";
-
     LOGE("vShaderStr======%s",vShaderStr);
     LOGE("fShaderStr======%s",fShaderStr);
     m_ProgramObj = GLUtils::CreateProgram(vShaderStr, fShaderStr, m_VertexShader, m_FragmentShader);

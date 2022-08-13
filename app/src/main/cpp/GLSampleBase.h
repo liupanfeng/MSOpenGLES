@@ -8,6 +8,8 @@
 #include <GLES3/gl3.h>
 #include "ImageDef.h"
 #include "stdint.h"
+#include "GLUtils.h"
+#include "android_log_util.h"
 
 #define VERTEX_SHADER_TYPE                             100
 #define FRAGMENT_SHADER_TYPE                           101

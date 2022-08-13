@@ -15,7 +15,7 @@ import com.example.msopengles.databinding.ActivityMainBinding;
 /**
  * 菜单页面
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     static {
         System.loadLibrary("msopengles");
@@ -54,7 +54,21 @@ public class MainActivity extends AppCompatActivity {
                 CommonActivity.actionCommonActivity(MainActivity.this,SAMPLE_TYPE_TEXTURE_MAP);
             }
         });
+
+        mBinding.btnLoadNv21.setOnClickListener(this);
     }
 
     public native String stringFromJNI();
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_load_nv21:
+                CommonActivity.actionCommonActivity(MainActivity.this,SAMPLE_TYPE_YUV_TEXTURE_MAP);
+                break;
+            default:
+                break;
+        }
+
+    }
 }

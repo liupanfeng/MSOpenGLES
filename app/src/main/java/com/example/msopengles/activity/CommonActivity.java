@@ -16,6 +16,8 @@ import com.example.msopengles.opengles.MSGLRender;
 import com.example.msopengles.opengles.MSGLSurfaceView;
 import com.example.msopengles.utils.TextResourceReader;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 public class CommonActivity extends AppCompatActivity {
@@ -62,6 +64,40 @@ public class CommonActivity extends AppCompatActivity {
                 mMSGLRender.setParamsString(SAMPLE_TYPE, SAMPLE_TYPE_FRAGMENT_SHADER, fragmentShader);
                 loadRGBABitmap(R.mipmap.test);
                 break;
+            case SAMPLE_TYPE_YUV_TEXTURE_MAP:
+                loadNV21Image();
+                break;
+        }
+
+    }
+
+    private void loadNV21Image() {
+        InputStream inputStream=null;
+        try {
+           inputStream= getAssets().open("YUV_Image_840x1074.NV21");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        int lenght = 0;
+        try {
+            lenght = inputStream.available();
+            byte[] buffer = new byte[lenght];
+            inputStream.read(buffer);
+            mMSGLRender.setImageData(IMAGE_FORMAT_NV21, 840, 1074, buffer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try
+            {
+                inputStream.close();
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace();
+            }
         }
 
     }

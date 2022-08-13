@@ -49,6 +49,10 @@ public class MSGLRender implements GLSurfaceView.Renderer {
         mMSNativeRender.native_set_bitmap_data(imageFormatRgba,width,height,array);
     }
 
+    public void setImageData(int imageFormatNv21, int width, int height, byte[] array) {
+        mMSNativeRender.native_set_bitmap_data(imageFormatNv21,width,height,array);
+    }
+
     public void init() {
         mMSNativeRender.native_OnInit();
     }
@@ -70,7 +74,6 @@ public class MSGLRender implements GLSurfaceView.Renderer {
         }
         mMSNativeRender.native_SetParamsString(paramType, value0, value1);
     }
-
 
 
 

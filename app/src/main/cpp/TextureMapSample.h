@@ -5,9 +5,7 @@
 #ifndef MSOPENGLES_TEXTUREMAPSAMPLE_H
 #define MSOPENGLES_TEXTUREMAPSAMPLE_H
 
-#include "ImageDef.h"
-#include <GLES3/gl3.h>
-#include "GLUtils.h"
+
 #include "GLSampleBase.h"
 
 /**

@@ -11,6 +11,7 @@
 #include "android_log_util.h"
 #include "TriangleSample.h"
 #include "TextureMapSample.h"
+#include "NV21TextureMapSample.h"
 
 class MSGLRenderContext {
 public:

@@ -5,9 +5,7 @@
 #ifndef MSOPENGLES_TRIANGLESAMPLE_H
 #define MSOPENGLES_TRIANGLESAMPLE_H
 
-#include <GLES3/gl3.h>
-#include "GLUtils.h"
-#include "android_log_util.h"
+
 #include "GLSampleBase.h"
 
 

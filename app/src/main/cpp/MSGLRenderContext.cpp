@@ -51,7 +51,12 @@ void MSGLRenderContext::SetImageData(int format, int width, int height, uint8_t 
             break;
     }
 
-    m_pCurSample->LoadImage(&nativeImage);
+    if (m_pCurSample)
+    {
+        m_pCurSample->LoadImage(&nativeImage);
+    }else{
+        LOGE("m_pCurSample is null.........")
+    }
 
 }
 /**
@@ -75,8 +80,6 @@ void MSGLRenderContext::OnSurfaceChanged(int width, int height)
     glViewport(0, 0, width, height);
     m_ScreenW = width;
     m_ScreenH = height;
-
-
 
 }
 
@@ -138,6 +141,9 @@ void MSGLRenderContext::SetParamsInt(int paramType, int value0, int value1) {
                 break;
             case SAMPLE_TYPE_KEY_TEXTURE_MAP:
                 m_pCurSample = new TextureMapSample();
+                break;
+            case SAMPLE_TYPE_KEY_YUV_TEXTURE_MAP:
+                m_pCurSample=new NV21TextureMapSample();
                 break;
 
         }
