@@ -52,23 +52,27 @@ public class CommonActivity extends AppCompatActivity {
 
         switch (mType){
             case SAMPLE_TYPE_TRIANGLE:
-                String vertexShader = TextResourceReader.readTextFileFromResource(this, R.raw.vertex_triangle);
-                String fragmentShader = TextResourceReader.readTextFileFromResource(this, R.raw.fragment_triangle);
-                mMSGLRender.setParamsString(SAMPLE_TYPE, SAMPLE_TYPE_VERTEX_SHADER, vertexShader);
-                mMSGLRender.setParamsString(SAMPLE_TYPE, SAMPLE_TYPE_FRAGMENT_SHADER, fragmentShader);
+                setVAndFShader(R.raw.vertex_triangle, R.raw.fragment_triangle);
                 break;
             case SAMPLE_TYPE_TEXTURE_MAP:
-                 vertexShader = TextResourceReader.readTextFileFromResource(this, R.raw.vertext_texture_map);
-                 fragmentShader = TextResourceReader.readTextFileFromResource(this, R.raw.fragment_texture_map);
-                mMSGLRender.setParamsString(SAMPLE_TYPE, SAMPLE_TYPE_VERTEX_SHADER, vertexShader);
-                mMSGLRender.setParamsString(SAMPLE_TYPE, SAMPLE_TYPE_FRAGMENT_SHADER, fragmentShader);
+                setVAndFShader(R.raw.vertext_texture_map, R.raw.fragment_texture_map);
                 loadRGBABitmap(R.mipmap.test);
                 break;
             case SAMPLE_TYPE_YUV_TEXTURE_MAP:
+                setVAndFShader(R.raw.vertex_nv21_texture_map, R.raw.fragment_nv21_texture_map);
                 loadNV21Image();
                 break;
         }
 
+    }
+
+    private void setVAndFShader(int vShader,int fShader) {
+        String vertexShader;
+        String fragmentShader;
+        vertexShader = TextResourceReader.readTextFileFromResource(this, vShader);
+        fragmentShader = TextResourceReader.readTextFileFromResource(this,fShader);
+        mMSGLRender.setParamsString(SAMPLE_TYPE, SAMPLE_TYPE_VERTEX_SHADER, vertexShader);
+        mMSGLRender.setParamsString(SAMPLE_TYPE, SAMPLE_TYPE_FRAGMENT_SHADER, fragmentShader);
     }
 
     private void loadNV21Image() {

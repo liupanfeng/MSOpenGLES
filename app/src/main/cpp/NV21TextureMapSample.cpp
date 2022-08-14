@@ -20,35 +20,7 @@ void NV21TextureMapSample::LoadImage(NativeImage *pImage) {
 }
 
 void NV21TextureMapSample::Init() {
-    char vShaderStr[] =
-            "#version 300 es                            \n"
-            "layout(location = 0) in vec4 a_position;   \n"
-            "layout(location = 1) in vec2 a_texCoord;   \n"
-            "out vec2 v_texCoord;                       \n"
-            "void main()                                \n"
-            "{                                          \n"
-            "   gl_Position = a_position;               \n"
-            "   v_texCoord = a_texCoord;                \n"
-            "}                                          \n";
 
-    char fShaderStr[] =
-            "#version 300 es                                     \n"
-            "precision mediump float;                            \n"
-            "in vec2 v_texCoord;                                 \n"
-            "layout(location = 0) out vec4 outColor;             \n"
-            "uniform sampler2D y_texture;                        \n"
-            "uniform sampler2D uv_texture;                        \n"
-            "void main()                                         \n"
-            "{                                                   \n"
-            "	vec3 yuv;										\n"
-            "   yuv.x = texture(y_texture, v_texCoord).r;  	\n"
-            "   yuv.y = texture(uv_texture, v_texCoord).a-0.5;	\n"
-            "   yuv.z = texture(uv_texture, v_texCoord).r-0.5;	\n"
-            "	highp vec3 rgb = mat3( 1,       1,       	1,					\n"
-            "               0, 		-0.344, 	1.770,					\n"
-            "               1.403,  -0.714,       0) * yuv; 			\n"
-            "	outColor = vec4(rgb, 1);						\n"
-            "}                                                   \n";
     /*通过shader 创建程序 给两个shader id赋值*/
     m_ProgramObj= GLUtils::CreateProgram(vShaderStr, fShaderStr, m_VertexShader, m_FragmentShader);
 
