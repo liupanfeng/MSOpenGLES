@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         mBinding.btnLoadNv21.setOnClickListener(this);
+        mBinding.btnLoadFbo.setOnClickListener(this);
     }
 
     public native String stringFromJNI();
@@ -65,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.btn_load_nv21:
                 CommonActivity.actionCommonActivity(MainActivity.this,SAMPLE_TYPE_YUV_TEXTURE_MAP);
+                break;
+            case R.id.btn_load_fbo:
+                CommonActivity.actionCommonActivity(MainActivity.this,SAMPLE_TYPE_FBO);
                 break;
             default:
                 break;

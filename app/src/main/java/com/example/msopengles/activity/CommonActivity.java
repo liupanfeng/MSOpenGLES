@@ -62,6 +62,18 @@ public class CommonActivity extends AppCompatActivity {
                 setVAndFShader(R.raw.vertex_nv21_texture_map, R.raw.fragment_nv21_texture_map);
                 loadNV21Image();
                 break;
+            case SAMPLE_TYPE_FBO:
+                Bitmap bitmap = loadRGBAImage(R.drawable.lye);
+                mMSGLSurfaceView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mMSGLSurfaceView.setAspectRatio(bitmap.getWidth(), bitmap.getHeight());
+                    }
+                },3000);
+
+                break;
+            default:
+                break;
         }
 
     }
@@ -117,6 +129,35 @@ public class CommonActivity extends AppCompatActivity {
         }
 
     }
+
+
+    private Bitmap loadRGBAImage(int resId) {
+        InputStream is = this.getResources().openRawResource(resId);
+        Bitmap bitmap;
+        try {
+            bitmap = BitmapFactory.decodeStream(is);
+            if (bitmap != null) {
+                int bytes = bitmap.getByteCount();
+                ByteBuffer buf = ByteBuffer.allocate(bytes);
+                bitmap.copyPixelsToBuffer(buf);
+                byte[] byteArray = buf.array();
+                mMSGLRender.setImageData(IMAGE_FORMAT_RGBA, bitmap.getWidth(), bitmap.getHeight(), byteArray);
+            }
+        }
+        finally
+        {
+            try
+            {
+                is.close();
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return bitmap;
+    }
+
 
     @Override
     protected void onDestroy() {
