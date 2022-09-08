@@ -43,4 +43,13 @@
         android:layout_marginTop="16dp"
         />
 
+    <Button
+        android:id="@+id/btn_load_basic_light"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="加载基础光照"
+        android:layout_marginTop="16dp"
+        />
+
 </LinearLayout>

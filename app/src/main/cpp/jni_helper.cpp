@@ -91,3 +91,16 @@ Java_com_example_msopengles_opengles_MSNativeRender_native_1SetParamsString(JNIE
     env->ReleaseStringUTFChars(value1,content);
 
 }
+
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_example_msopengles_opengles_MSNativeRender_native_1UpdateTransformMatrix(JNIEnv *env,
+                                                                                  jobject thiz,
+                                                                                  jfloat rotate_x,
+                                                                                  jfloat rotate_y,
+                                                                                  jfloat scale_x,
+                                                                                  jfloat scale_y) {
+
+    MSGLRenderContext::GetInstance()->UpdateTransformMatrix(rotate_x,rotate_y,scale_x,scale_y);
+}

@@ -47,6 +47,7 @@ public class CommonActivity extends AppCompatActivity {
         if (intent != null) {
             mType = intent.getIntExtra("type", 0);
         }
+
         mMSGLRender.setParamsInt(SAMPLE_TYPE, mType, 0);
 
 
@@ -72,6 +73,10 @@ public class CommonActivity extends AppCompatActivity {
                 },3000);
 
                 break;
+            case SAMPLE_TYPE_BASIC_LIGHTING:
+                loadRGBAImage(R.mipmap.girl);
+                break;
+
             default:
                 break;
         }

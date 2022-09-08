@@ -36,4 +36,7 @@ public class MSNativeRender {
     public native void native_SetParamsInt(int paramType, int value0, int value1);
 
     public native void native_SetParamsString(int paramType, int value0, String value1);
+
+
+    public native void native_UpdateTransformMatrix(float rotateX, float rotateY, float scaleX, float scaleY);
 }

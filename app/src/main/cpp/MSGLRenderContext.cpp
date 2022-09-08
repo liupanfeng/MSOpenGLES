@@ -135,6 +135,9 @@ void MSGLRenderContext::SetParamsInt(int paramType, int value0, int value1) {
             case SAMPLE_TYPE_KEY_FBO:
                 m_pCurSample = new FBOSample();
                 break;
+            case SAMPLE_TYPE_KEY_BASIC_LIGHTING:
+                m_pCurSample = new BasicLightingSample();
+                break;
 
         }
     }
@@ -159,6 +162,17 @@ void MSGLRenderContext::SetParamsCharArray(int paramType, int value0, const char
             }
         }
 
+    }
+
+
+}
+
+void MSGLRenderContext::UpdateTransformMatrix(float rotateX, float rotateY, float scaleX, float scaleY)
+{
+    LOGD("MyGLRenderContext::UpdateTransformMatrix [rotateX, rotateY, scaleX, scaleY] = [%f, %f, %f, %f]", rotateX, rotateY, scaleX, scaleY);
+    if (m_pCurSample)
+    {
+        m_pCurSample->UpdateTransformMatrix(rotateX, rotateY, scaleX, scaleY);
     }
 }
 

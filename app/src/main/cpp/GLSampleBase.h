@@ -10,6 +10,7 @@
 #include "stdint.h"
 #include "GLUtils.h"
 #include "android_log_util.h"
+#include <gtc/matrix_transform.hpp>
 
 #define VERTEX_SHADER_TYPE                             100
 #define FRAGMENT_SHADER_TYPE                           101
@@ -23,6 +24,8 @@
 #define SAMPLE_TYPE_KEY_FBO                     SAMPLE_TYPE + 4
 #define SAMPLE_TYPE_KEY_FBO_LEG_LENGTHEN        SAMPLE_TYPE + 6
 
+#define SAMPLE_TYPE_KEY_BASIC_LIGHTING          SAMPLE_TYPE + 8
+
 class GLSampleBase {
 
 public:
@@ -34,6 +37,10 @@ public:
         m_SurfaceHeight = 0;
     }
     ~GLSampleBase(){}
+
+    virtual void UpdateTransformMatrix(float rotateX, float rotateY, float scaleX, float scaleY)
+    {}
+
 
     virtual void LoadImage(NativeImage *pImage){};
     /**

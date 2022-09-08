@@ -75,6 +75,17 @@ public class MSGLRender implements GLSurfaceView.Renderer {
         mMSNativeRender.native_SetParamsString(paramType, value0, value1);
     }
 
+    public int getSampleType() {
+        return mSampleType;
+    }
+
+
+    public void updateTransformMatrix(float rotateX, float rotateY, float scaleX, float scaleY)
+    {
+        mMSNativeRender.native_UpdateTransformMatrix(rotateX, rotateY, scaleX, scaleY);
+    }
+
+
 
 
 }

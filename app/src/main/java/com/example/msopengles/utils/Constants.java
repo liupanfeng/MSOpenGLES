@@ -27,7 +27,7 @@ public class Constants {
     public static final int SAMPLE_TYPE_FBO                     = SAMPLE_TYPE + 4;
     public static final int SAMPLE_TYPE_EGL                     = SAMPLE_TYPE + 5;
     public static final int SAMPLE_TYPE_FBO_LEG                 = SAMPLE_TYPE + 6;
-
+    public static final int SAMPLE_TYPE_BASIC_LIGHTING          = SAMPLE_TYPE + 8;
 
 
 

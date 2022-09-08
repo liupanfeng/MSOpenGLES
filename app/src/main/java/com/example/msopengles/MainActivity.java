@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mBinding.btnLoadNv21.setOnClickListener(this);
         mBinding.btnLoadFbo.setOnClickListener(this);
+        mBinding.btnLoadBasicLight.setOnClickListener(this);
     }
 
     public native String stringFromJNI();
@@ -69,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_load_fbo:
                 CommonActivity.actionCommonActivity(MainActivity.this,SAMPLE_TYPE_FBO);
+                break;
+            case R.id.btn_load_basic_light:
+                CommonActivity.actionCommonActivity(MainActivity.this,SAMPLE_TYPE_BASIC_LIGHTING);
                 break;
             default:
                 break;

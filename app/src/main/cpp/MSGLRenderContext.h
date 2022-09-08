@@ -13,6 +13,7 @@
 #include "TextureMapSample.h"
 #include "NV21TextureMapSample.h"
 #include "FBOSample.h"
+#include "BasicLightingSample.h"
 
 
 class MSGLRenderContext {
@@ -32,6 +33,8 @@ public:
 
     void  SetParamsCharArray(int paramType,int value0 ,const char* value1);
 
+
+    void UpdateTransformMatrix(float rotateX, float rotateY, float scaleX, float scaleY);
 
 private:
     static MSGLRenderContext *m_pContext;
