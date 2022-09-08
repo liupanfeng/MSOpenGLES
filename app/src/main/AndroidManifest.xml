@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MSOpenGLES">
         <activity
-            android:name="com.example.video.VideoActivity"
+            android:name="com.example.video.MSVideoActivity"
             android:exported="false" />
         <activity
             android:name=".activity.CommonActivity"

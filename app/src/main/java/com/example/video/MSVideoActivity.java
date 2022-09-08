@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.msopengles.R;
 
-public class VideoActivity extends AppCompatActivity {
+public class MSVideoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
