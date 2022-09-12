@@ -57,14 +57,14 @@ public class CommonActivity extends AppCompatActivity {
                 break;
             case SAMPLE_TYPE_TEXTURE_MAP:
                 setVAndFShader(R.raw.vertext_texture_map, R.raw.fragment_texture_map);
-                loadRGBABitmap(R.mipmap.test);
+                loadRGBABitmap(R.mipmap.girl);
                 break;
             case SAMPLE_TYPE_YUV_TEXTURE_MAP:
                 setVAndFShader(R.raw.vertex_nv21_texture_map, R.raw.fragment_nv21_texture_map);
                 loadNV21Image();
                 break;
             case SAMPLE_TYPE_FBO:
-                Bitmap bitmap = loadRGBAImage(R.drawable.lye);
+                Bitmap bitmap = loadRGBAImage(R.mipmap.girl);
                 mMSGLSurfaceView.postDelayed(new Runnable() {
                     @Override
                     public void run() {

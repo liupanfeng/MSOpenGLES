@@ -26,13 +26,15 @@ void TextureMapSample::LoadImage(NativeImage *pImage) {
 
 void TextureMapSample::Init() {
     /*create RGBA texture*/
+//    生成一个纹理 将纹理id赋值给m_TextureId
     glGenTextures(1, &m_TextureId);
+//    声明这个纹理手机一个2d纹理
     glBindTexture(GL_TEXTURE_2D, m_TextureId);
-    /*参数边缘检测  截取拉伸和边缘拉伸*/
+    /*参数边缘检测  截取拉伸和边缘拉伸   设置纹理 S 轴（横轴）的拉伸方式为截取 */
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-    /*边缘线性检测*/
+    /*设置纹理采样方式*/
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
@@ -89,7 +91,7 @@ void TextureMapSample::Draw(int screenW, int screenH) {
 
     GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
 
-    /*upload RGBA image data*/
+    /*upload RGBA image data 上传 RGBA 图像数据*/
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_TextureId);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_RenderImage.width, m_RenderImage.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_RenderImage.ppPlane[0]);
@@ -108,11 +110,11 @@ void TextureMapSample::Draw(int screenW, int screenH) {
     glEnableVertexAttribArray (0);
     glEnableVertexAttribArray (1);
 
-    // Bind the RGBA map
+    // Bind the RGBA map 绑定RGBA贴图
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_TextureId);
 
-    // Set the RGBA map sampler to texture unit to 0
+    // Set the RGBA map sampler to texture unit to 0 将 RGBA 贴图采样器设置为纹理单元为 0
     glUniform1i(m_SamplerLoc, 0);
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);

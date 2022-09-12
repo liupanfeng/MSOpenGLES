@@ -43,12 +43,12 @@ GLuint GLUtils::LoadShader(GLenum shaderType, const char *pSource)
     return shader;
 }
 /**
- * 创建程序
+ * 编译连接 shader
  * @param pVertexShaderSource   顶点着色器源码
  * @param pFragShaderSource   片段着色器源码
  * @param vertexShaderId
  * @param fragShaderId
- * @return
+ * @return 返回program
  */
 GLuint GLUtils::CreateProgram(const char *pVertexShaderSource, const char *pFragShaderSource, GLuint &vertexShaderId, GLuint &fragShaderId)
 {

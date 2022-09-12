@@ -6,7 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Intent;
+import android.graphics.SurfaceTexture;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.view.Surface;
+import android.view.SurfaceView;
+import android.view.TextureView;
 import android.view.View;
 
 import com.example.msopengles.activity.CommonActivity;
@@ -31,10 +37,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(mBinding.getRoot());
 
         ActivityCompat.requestPermissions(this,new String[]{
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA
         },100);
 
         initListener();
+
+
+        GLSurfaceView glSurfaceView;
+        SurfaceView surfaceView;
+
+        Surface surface;
+
+        SurfaceTexture surfaceTexture;
+
+        TextureView textureView;
+
     }
 
     /**
@@ -55,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        mBinding.btnTextureView.setOnClickListener(this);
         mBinding.btnLoadNv21.setOnClickListener(this);
         mBinding.btnLoadFbo.setOnClickListener(this);
         mBinding.btnLoadBasicLight.setOnClickListener(this);
@@ -73,6 +92,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_load_basic_light:
                 CommonActivity.actionCommonActivity(MainActivity.this,SAMPLE_TYPE_BASIC_LIGHTING);
+                break;
+            case R.id.btn_texture_view:
+                startActivity(new Intent(MainActivity.this,LiveCameraActivity.class));
                 break;
             default:
                 break;
