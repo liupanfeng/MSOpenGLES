@@ -19,7 +19,7 @@ import com.example.msopengles.activity.CommonActivity;
 import com.example.msopengles.databinding.ActivityMainBinding;
 
 /**
- * 菜单页面
+ * GLES 菜单页面
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
