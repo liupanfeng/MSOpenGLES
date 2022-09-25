@@ -50,29 +50,7 @@ public class VideoPlayByMediaCodecActivity extends AppCompatActivity {
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 
         mMsVideoDecoder = new MSVideoDecoder(mVideoPath, surfaceView, null);
-        mMsVideoDecoder.setSizeListener(new MSIDecoderProgress() {
-            @Override
-            public void videoSizeChange(int width, int height, int rotation) {
 
-            }
-
-            @Override
-            public void videoProgressChange(long position) {
-                Log.d("lpf", "position=" + position);
-                updateProgress(position);
-            }
-
-            @Override
-            public void videoDuration(long duration) {
-               runOnUiThread(new Runnable() {
-                   @Override
-                   public void run() {
-                       mSeekBar.setMax((int) (duration / TIME_BASE));
-                       totalDuration.setText(formatTimeStrWithUs(duration));
-                   }
-               });
-            }
-        });
 
 
 
@@ -81,11 +59,16 @@ public class VideoPlayByMediaCodecActivity extends AppCompatActivity {
         mMSAudioDecoder = new MSAudioDecoder(mVideoPath);
         executorService.execute(mMSAudioDecoder);
 
-
         mMsVideoDecoder.startPlay();
         mMSAudioDecoder.startPlay();
         btn_play.setBackgroundResource(R.mipmap.icon_edit_pause);
 
+
+        initListener();
+
+    }
+
+    private void initListener() {
         btn_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +85,30 @@ public class VideoPlayByMediaCodecActivity extends AppCompatActivity {
             }
         });
 
+
+        mMsVideoDecoder.setSizeListener(new MSIDecoderProgress() {
+            @Override
+            public void videoSizeChange(int width, int height, int rotation) {
+
+            }
+
+            @Override
+            public void videoProgressChange(long position) {
+                Log.d("lpf", "position=" + position);
+                updateProgress(position);
+            }
+
+            @Override
+            public void videoDuration(long duration) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSeekBar.setMax((int) (duration / TIME_BASE));
+                        totalDuration.setText(formatTimeStrWithUs(duration));
+                    }
+                });
+            }
+        });
     }
 
     private long prePosition;
