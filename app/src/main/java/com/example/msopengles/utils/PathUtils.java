@@ -1,11 +1,16 @@
 package com.example.msopengles.utils;
 
+import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
-import com.example.msopengles.App;
+import com.example.App;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  *
@@ -20,6 +25,9 @@ public class PathUtils {
     private static String SDK_FILE_ROOT_DIRECTORY = "MSOpenGLES" + File.separator;
 
     private static String YUV_DIRECTORY = SDK_FILE_ROOT_DIRECTORY + "yuv";
+
+
+    private static final String LOCAL_VIDEO_PATH = SDK_FILE_ROOT_DIRECTORY + "video";
 
     /**
      * 删除文件
@@ -90,6 +98,14 @@ public class PathUtils {
     }
 
 
+    public static String getLocalVideoDir() {
+        String dstDirPath = getFolderDirPath(LOCAL_VIDEO_PATH);
+        if (dstDirPath == null) {
+            return null;
+        }
+        return dstDirPath;
+    }
+
     public static String getFolderDirPath(String dstDirPathToCreate) {
         File dstFileDir = new File(Environment.getExternalStorageDirectory(), dstDirPathToCreate);
         if (AndroidOS.USE_SCOPED_STORAGE) {
@@ -103,5 +119,35 @@ public class PathUtils {
     }
 
 
+
+    public static void copyAssetFile(Context context, String fileName, String className, String destFileDirPath) {
+        /*
+         * 模型文件不存在
+         * The model file does not exist
+         * */
+        try {
+            File folder = new File(destFileDirPath);
+
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+            String destFilePath=destFileDirPath+File.separator+fileName;
+            File file=new File(destFilePath);
+            if (file.exists()){
+                return;
+            }
+            InputStream in = context.getAssets().open(className + File.separator + fileName);
+            OutputStream out = new FileOutputStream(file);
+            byte[] buffer = new byte[4096];
+            int n;
+            while ((n = in.read(buffer)) > 0) {
+                out.write(buffer, 0, n);
+            }
+            in.close();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

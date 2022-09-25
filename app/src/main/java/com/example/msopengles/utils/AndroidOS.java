@@ -11,9 +11,11 @@ import android.os.Build;
  */
 public class AndroidOS {
     public static boolean USE_SCOPED_STORAGE;
+    public static boolean VERSION_HIGH_OR_EQUAL_Q;
     public static void initConfig(Context context){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
             USE_SCOPED_STORAGE = true;
+            VERSION_HIGH_OR_EQUAL_Q=true;
         }
     }
 }

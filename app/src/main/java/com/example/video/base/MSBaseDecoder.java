@@ -170,6 +170,7 @@ public abstract class MSBaseDecoder implements MSIDecoder {
 
         //【解码步骤：1. 初始化，并启动解码器】
         if (!init()) {
+            Log.e(TAG, "init失败");
             return;
         }
 
@@ -297,7 +298,7 @@ public abstract class MSBaseDecoder implements MSIDecoder {
 
     public boolean init() {
         if (mFilePath.isEmpty() || !new File(mFilePath).exists() && mStateListener != null) {
-            Log.d(TAG, "文件路径为空");
+            Log.e(TAG, "文件路径为空");
             mStateListener.decoderError(this, "文件路径为空");
             return false;
         }
@@ -308,7 +309,7 @@ public abstract class MSBaseDecoder implements MSIDecoder {
 
         if (mExtractor == null ||
                 mExtractor.getFormat() == null) {
-            Log.d(TAG, "无法解析文件");
+            Log.e(TAG, "无法解析文件");
             return false;
         }
 
@@ -319,16 +320,19 @@ public abstract class MSBaseDecoder implements MSIDecoder {
 
         //初始化参数
         if (!initParams()) {
+            Log.e(TAG, "initParams error");
             return false;
         }
 
         //初始化渲染器
         if (!initRender()) {
+            Log.e(TAG, "initRender error");
             return false;
         }
 
         //初始化解码器
         if (!initCodec()) {
+            Log.e(TAG, "initCodec error");
             return false;
         }
         return true;

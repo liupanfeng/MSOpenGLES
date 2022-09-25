@@ -9,6 +9,7 @@ import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
+import com.example.msopengles.utils.AndroidOS;
 import com.example.video.base.MSBaseDecoder;
 import com.example.video.extractor.MSVideoExtractor;
 import com.example.video.inter.MSIExtractor;
@@ -80,65 +81,41 @@ public class MSVideoDecoder extends MSBaseDecoder {
      */
     @Override
     public boolean configCodec(MediaCodec codec, MediaFormat format) {
-//        if (mSurface != null) {
-//            codec.configure(format, mSurface, null, 0);
-//            notifyDecode();
-//        } else if (mSurfaceView.getHolder().getSurface() != null) {
-//            mSurface = mSurfaceView.getHolder().getSurface();
-//            configCodec(codec, format);
-//        } else {
-//            mSurfaceView.getHolder().addCallback(new SurfaceHolder.Callback2() {
-//                @Override
-//                public void surfaceRedrawNeeded(@NonNull SurfaceHolder holder) {
-//
-//                }
-//
-//                @Override
-//                public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
-//                    mSurface = surfaceHolder.getSurface();
-//                    configCodec(codec, format);
-//                }
-//
-//                @Override
-//                public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-//
-//                }
-//
-//                @Override
-//                public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
-//
-//                }
-//            });
-//            return false;
-//        }
-//
-//        return true;
+        if (AndroidOS.VERSION_HIGH_OR_EQUAL_Q){
+            Log.d("BaseDecoder","VERSION_HIGH_OR_EQUAL_Q----");
+            mSurface = mSurfaceView.getHolder().getSurface();
+            codec.configure(format, mSurface, null, 0);
+            notifyDecode();
+            return true;
+        }else{
+            mSurfaceView.getHolder().addCallback(new SurfaceHolder.Callback2() {
+                @Override
+                public void surfaceRedrawNeeded(@NonNull SurfaceHolder holder) {
 
-        mSurfaceView.getHolder().addCallback(new SurfaceHolder.Callback2() {
-            @Override
-            public void surfaceRedrawNeeded(@NonNull SurfaceHolder holder) {
+                }
 
-            }
+                @Override
+                public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
+                    Log.d("BaseDecoder","surfaceCreated----");
+                    mSurface = surfaceHolder.getSurface();
+                    //配置最好是放在这里  否则会报 The surface has been released  surface还没有初始化成功
+                    codec.configure(format, mSurface, null, 0);
+                    notifyDecode();
+                }
 
-            @Override
-            public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
-                mSurface = surfaceHolder.getSurface();
-                //配置最好是放在这里  否则会报 The surface has been released  surface还没有初始化成功
-                codec.configure(format, mSurface, null, 0);
-                notifyDecode();
-            }
+                @Override
+                public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+                    Log.d("BaseDecoder","surfaceChanged----");
+                }
 
-            @Override
-            public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+                @Override
+                public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
+                    Log.d("BaseDecoder","surfaceDestroyed----");
+                }
+            });
+            return false;
+        }
 
-            }
-
-            @Override
-            public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
-
-            }
-        });
-        return false;
     }
 
     //进行绘制操作

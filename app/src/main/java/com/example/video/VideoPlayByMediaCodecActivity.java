@@ -12,6 +12,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.msopengles.R;
+import com.example.msopengles.utils.PathUtils;
 import com.example.video.decode.MSAudioDecoder;
 import com.example.video.decode.MSVideoDecoder;
 import com.example.video.inter.MSIDecoderProgress;
@@ -24,8 +25,7 @@ public class VideoPlayByMediaCodecActivity extends AppCompatActivity {
 
     private static final long TIME_BASE = 1000000;
 
-    private String mVideoPath = Environment.getExternalStorageDirectory().
-            getAbsolutePath() + File.separator + "test.mp4";
+    private String mVideoPath = PathUtils.getLocalVideoDir()+File.separator+"demo.mp4";
 
     private MSVideoDecoder mMsVideoDecoder;
     private MSAudioDecoder mMSAudioDecoder;
@@ -64,8 +64,13 @@ public class VideoPlayByMediaCodecActivity extends AppCompatActivity {
 
             @Override
             public void videoDuration(long duration) {
-                mSeekBar.setMax((int) (duration / TIME_BASE));
-                totalDuration.setText(formatTimeStrWithUs(duration));
+               runOnUiThread(new Runnable() {
+                   @Override
+                   public void run() {
+                       mSeekBar.setMax((int) (duration / TIME_BASE));
+                       totalDuration.setText(formatTimeStrWithUs(duration));
+                   }
+               });
             }
         });
 
