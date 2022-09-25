@@ -21,7 +21,7 @@ import com.example.msopengles.databinding.ActivityMainBinding;
 /**
  * GLES 菜单页面
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class OpenGLESMenuActivity extends AppCompatActivity implements View.OnClickListener {
 
     static {
         System.loadLibrary("msopengles");
@@ -62,14 +62,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBinding.btnPlayYuv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CommonActivity.actionCommonActivity(MainActivity.this,SAMPLE_TYPE_TRIANGLE);
+                CommonActivity.actionCommonActivity(OpenGLESMenuActivity.this,SAMPLE_TYPE_TRIANGLE);
             }
         });
 
         mBinding.btnShowBitmap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CommonActivity.actionCommonActivity(MainActivity.this,SAMPLE_TYPE_TEXTURE_MAP);
+                CommonActivity.actionCommonActivity(OpenGLESMenuActivity.this,SAMPLE_TYPE_TEXTURE_MAP);
             }
         });
 
@@ -85,16 +85,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_load_nv21:
-                CommonActivity.actionCommonActivity(MainActivity.this,SAMPLE_TYPE_YUV_TEXTURE_MAP);
+                CommonActivity.actionCommonActivity(OpenGLESMenuActivity.this,SAMPLE_TYPE_YUV_TEXTURE_MAP);
                 break;
             case R.id.btn_load_fbo:
-                CommonActivity.actionCommonActivity(MainActivity.this,SAMPLE_TYPE_FBO);
+                CommonActivity.actionCommonActivity(OpenGLESMenuActivity.this,SAMPLE_TYPE_FBO);
                 break;
             case R.id.btn_load_basic_light:
-                CommonActivity.actionCommonActivity(MainActivity.this,SAMPLE_TYPE_BASIC_LIGHTING);
+                CommonActivity.actionCommonActivity(OpenGLESMenuActivity.this,SAMPLE_TYPE_BASIC_LIGHTING);
                 break;
             case R.id.btn_texture_view:
-                startActivity(new Intent(MainActivity.this,LiveCameraActivity.class));
+                startActivity(new Intent(OpenGLESMenuActivity.this,LiveCameraActivity.class));
                 break;
             default:
                 break;

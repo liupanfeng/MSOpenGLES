@@ -2,7 +2,7 @@ package com.example.video.extractor;
 
 import android.media.MediaFormat;
 
-import com.example.video.inter.IExtractor;
+import com.example.video.inter.MSIExtractor;
 
 import java.nio.ByteBuffer;
 
@@ -14,45 +14,47 @@ import java.nio.ByteBuffer;
  * @Description:
  * @Copyright: www.meishesdk.com Inc. All rights reserved.
  */
-public class AudioExtractor implements IExtractor {
+public class MSAudioExtractor implements MSIExtractor {
 
-    private String  filePath;
 
-    public AudioExtractor(String filePath) {
-        this.filePath = filePath;
+    private MSExtractor mMsExtractor;
+
+    public MSAudioExtractor(String filePath) {
+        mMsExtractor = new MSExtractor(filePath);
     }
+
     @Override
     public MediaFormat getFormat() {
-        return null;
+        return mMsExtractor.getAudioFormat();
     }
 
     @Override
     public int readBuffer(ByteBuffer byteBuffer) {
-        return 0;
+        return mMsExtractor.readBuffer(byteBuffer);
     }
 
     @Override
     public long getCurrentTimestamp() {
-        return 0;
+        return mMsExtractor.getCurSampleTime();
     }
 
     @Override
     public int getSampleFlag() {
-        return 0;
+        return mMsExtractor.getCurFrameFlag();
     }
 
     @Override
     public long seek(long position) {
-        return 0;
+        return mMsExtractor.seek(position);
     }
 
     @Override
     public void setStartPos(long position) {
-
+        mMsExtractor.setStartPos(position);
     }
 
     @Override
     public void stop() {
-
+        mMsExtractor.stop();
     }
 }

@@ -12,7 +12,7 @@ import java.nio.ByteBuffer;
  * @Description:
  * @Copyright: www.meishesdk.com Inc. All rights reserved.
  */
-public class Frame {
+public class MSFrame {
 
     public ByteBuffer buffer = null;
 

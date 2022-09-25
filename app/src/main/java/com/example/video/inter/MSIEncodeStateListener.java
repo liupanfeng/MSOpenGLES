@@ -8,5 +8,5 @@ package com.example.video.inter;
  * @Description:
  * @Copyright: www.meishesdk.com Inc. All rights reserved.
  */
-public interface IEncodeStateListener {
+public interface MSIEncodeStateListener {
 }

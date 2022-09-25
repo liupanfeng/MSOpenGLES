@@ -7,12 +7,10 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
- * All rights Reserved, Designed By www.meishesdk.com
  *
  * @Author: lpf
  * @CreateDate: 2022/7/5 下午3:40
  * @Description:
- * @Copyright: www.meishesdk.com Inc. All rights reserved.
  */
 
 public class MSNativeRender {

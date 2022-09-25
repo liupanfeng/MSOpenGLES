@@ -8,7 +8,7 @@ package com.example.video;
  * @Description:
  * @Copyright: www.meishesdk.com Inc. All rights reserved.
  */
-public enum DecodeState {
+public enum MSDecodeState {
 
     /**开始状态*/
     START,

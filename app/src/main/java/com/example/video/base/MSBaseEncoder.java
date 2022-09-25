@@ -3,9 +3,9 @@ package com.example.video.base;
 import android.media.MediaCodec;
 import android.util.Log;
 
-import com.example.video.Frame;
-import com.example.video.inter.IEncodeStateListener;
-import com.example.video.muxer.MMuxer;
+import com.example.video.MSFrame;
+import com.example.video.inter.MSIEncodeStateListener;
+import com.example.video.muxer.MSMuxer;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -19,7 +19,7 @@ import java.util.List;
  * @Description:
  * @Copyright: www.meishesdk.com Inc. All rights reserved.
  */
-public abstract class BaseEncoder implements Runnable {
+public abstract class MSBaseEncoder implements Runnable {
 
     private static final String TAG = "BaseEncoder";
 
@@ -33,14 +33,14 @@ public abstract class BaseEncoder implements Runnable {
     /**
      * MP4 视频合成器
      */
-    private MMuxer mMuxer;
+    private MSMuxer mMuxer;
 
     private boolean mRunning = true;
 
     /**
      * 帧序列
      */
-    private List<Frame> mFrames;
+    private List<MSFrame> mFrames;
 
 
     private MediaCodec mCodec;
@@ -57,10 +57,10 @@ public abstract class BaseEncoder implements Runnable {
 
     private boolean mIsEOS = false;
 
-    private IEncodeStateListener mStateListener;
+    private MSIEncodeStateListener mStateListener;
 
 
-    public BaseEncoder(int mWidth, int mHeight, MMuxer mMuxer) {
+    public MSBaseEncoder(int mWidth, int mHeight, MSMuxer mMuxer) {
         this.mWidth = mWidth;
         this.mHeight = mHeight;
         this.mMuxer = mMuxer;
@@ -108,7 +108,7 @@ public abstract class BaseEncoder implements Runnable {
             }
 
             if (!mFrames.isEmpty()) {
-                Frame frame = mFrames.remove(0);
+                MSFrame frame = mFrames.remove(0);
                 if (encodeManually()) {
                     encode(frame);
                 } else if (frame.buffer == null) {  // 如果是自动编码（比如视频），遇到结束帧的时候，直接结束掉
@@ -124,7 +124,7 @@ public abstract class BaseEncoder implements Runnable {
 
     }
 
-    private void encode(Frame frame) {
+    private void encode(MSFrame frame) {
         
     }
 

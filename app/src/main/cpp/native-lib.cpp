@@ -68,7 +68,7 @@ static const char *fragment_shader= GET_STR(
 
 
 extern "C" JNIEXPORT jstring JNICALL
-Java_com_example_msopengles_MainActivity_stringFromJNI(
+Java_com_example_msopengles_OpenGLESMenuActivity_stringFromJNI(
         JNIEnv* env,
         jobject /* this */) {
     std::string hello = "Hello from C++";

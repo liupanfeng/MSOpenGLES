@@ -1,12 +1,10 @@
 package com.example.msopengles.utils;
 
 /**
- * All rights Reserved, Designed By www.meishesdk.com
  *
  * @Author: lpf
  * @CreateDate: 2022/7/5 下午3:22
  * @Description:
- * @Copyright: www.meishesdk.com Inc. All rights reserved.
  */
 public class Constants {
     public static final int IMAGE_FORMAT_RGBA = 0x01;

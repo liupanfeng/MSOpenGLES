@@ -4,17 +4,16 @@ import android.media.MediaCodec;
 import android.media.MediaFormat;
 import android.util.Log;
 
-import com.example.video.DecodeState;
-import com.example.video.Frame;
-import com.example.video.inter.IDecoder;
-import com.example.video.inter.IDecoderProgress;
-import com.example.video.inter.IDecoderStateListener;
-import com.example.video.inter.IExtractor;
+import com.example.video.MSDecodeState;
+import com.example.video.MSFrame;
+import com.example.video.extractor.MSVideoExtractor;
+import com.example.video.inter.MSIDecoder;
+import com.example.video.inter.MSIDecoderProgress;
+import com.example.video.inter.MSIDecoderStateListener;
+import com.example.video.inter.MSIExtractor;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.List;
 
 /**
  * All rights Reserved, Designed By www.meishesdk.com
@@ -24,7 +23,7 @@ import java.util.List;
  * @Description:
  * @Copyright: www.meishesdk.com Inc. All rights reserved.
  */
-public abstract class BaseDecoder implements IDecoder {
+public abstract class MSBaseDecoder implements MSIDecoder {
 
     private final String TAG = "BaseDecoder";
 
@@ -54,7 +53,7 @@ public abstract class BaseDecoder implements IDecoder {
     /**
      * 音视频数据读取器
      */
-    private IExtractor mExtractor = null;
+    private MSIExtractor mExtractor = null;
 
     /**
      * 解码输入缓存区
@@ -72,9 +71,11 @@ public abstract class BaseDecoder implements IDecoder {
      */
     private MediaCodec.BufferInfo mBufferInfo = new MediaCodec.BufferInfo();
 
-    private DecodeState mState = DecodeState.STOP;
+    private MSDecodeState mState = MSDecodeState.STOP;
 
-    protected IDecoderStateListener mStateListener = null;
+    protected MSIDecoderStateListener mStateListener = null;
+
+    private MSIDecoderProgress mIDecoderProgress=null;
 
     /**
      * 流数据是否结束
@@ -100,18 +101,19 @@ public abstract class BaseDecoder implements IDecoder {
     // 是否需要音视频渲染同步
     private boolean mSyncRender = true;
 
-    public BaseDecoder(String mFilePath) {
+    public MSBaseDecoder(String mFilePath) {
         this.mFilePath = mFilePath;
     }
 
     @Override
     public void pause() {
-
+        mState = MSDecodeState.PAUSE;
     }
 
     @Override
-    public void goOn() {
-
+    public void startPlay() {
+        mState = MSDecodeState.DECODING;
+        notifyDecode();
     }
 
     @Override
@@ -121,12 +123,15 @@ public abstract class BaseDecoder implements IDecoder {
 
     @Override
     public long seekAndPlay(long position) {
+        mExtractor.setStartPos(position);
         return 0;
     }
 
     @Override
     public void stop() {
-
+        mState = MSDecodeState.STOP;
+        mIsRunning = false;
+        notifyDecode();
     }
 
     @Override
@@ -141,25 +146,27 @@ public abstract class BaseDecoder implements IDecoder {
 
     @Override
     public boolean isStop() {
-        return false;
+        return mState== MSDecodeState.PAUSE;
     }
 
     @Override
-    public void setSizeListener(IDecoderProgress iDecoderProgress) {
-
+    public void setSizeListener(MSIDecoderProgress iDecoderProgress) {
+        this.mIDecoderProgress=iDecoderProgress;
     }
 
     @Override
-    public void setStateListener() {
-
+    public void setStateListener(MSIDecoderStateListener iDecoderStateListener) {
+        this.mStateListener=iDecoderStateListener;
     }
 
     @Override
-    final public void run() {
-        if (mState == DecodeState.STOP) {
-            mState = DecodeState.START;
+    public void run() {
+        if (mState == MSDecodeState.STOP) {
+            mState = MSDecodeState.START;
         }
-        mStateListener.decoderPrepare(this);
+        if (mStateListener != null) {
+            mStateListener.decoderPrepare(this);
+        }
 
         //【解码步骤：1. 初始化，并启动解码器】
         if (!init()) {
@@ -169,10 +176,10 @@ public abstract class BaseDecoder implements IDecoder {
         Log.d(TAG, "开始解码");
 
         try {
-            while (mIsRunning){
-                if (mState != DecodeState.START &&
-                        mState != DecodeState.DECODING &&
-                        mState != DecodeState.SEEKING) {
+            while (mIsRunning) {
+                if (mState != MSDecodeState.START &&
+                        mState != MSDecodeState.DECODING &&
+                        mState != MSDecodeState.SEEKING) {
                     Log.i(TAG, "进入等待：$mState");
 
                     waitDecode();
@@ -183,7 +190,7 @@ public abstract class BaseDecoder implements IDecoder {
                 }
 
                 if (!mIsRunning ||
-                        mState == DecodeState.STOP) {
+                        mState == MSDecodeState.STOP) {
                     mIsRunning = false;
                     break;
                 }
@@ -201,7 +208,7 @@ public abstract class BaseDecoder implements IDecoder {
                 int index = pullBufferFromDecoder();
                 if (index >= 0) {
                     // ---------【音视频同步】-------------
-                    if (mSyncRender && mState == DecodeState.DECODING) {
+                    if (mSyncRender && mState == MSDecodeState.DECODING) {
                         sleepRender();
                     }
                     //【解码步骤：4. 渲染】
@@ -210,33 +217,38 @@ public abstract class BaseDecoder implements IDecoder {
                     }
 
                     //将解码数据传递出去
-                    Frame frame = new Frame();
+                    MSFrame frame = new MSFrame();
                     frame.buffer = mOutputBuffers[index];
                     frame.setBufferInfo(mBufferInfo);
-                    mStateListener.decodeOneFrame(this, frame);
+                    if (mStateListener != null) {
+                        mStateListener.decodeOneFrame(this, frame);
+                    }
+
+                    if (mIDecoderProgress!=null&&mExtractor instanceof MSVideoExtractor){
+                        mIDecoderProgress.videoProgressChange(mExtractor.getCurrentTimestamp());
+                    }
 
                     //【解码步骤：5. 释放输出缓冲】
                     mCodec.releaseOutputBuffer(index, true);
 
-                    if (mState == DecodeState.START) {
-                        mState = DecodeState.PAUSE;
+                    if (mState == MSDecodeState.START) {
+                        mState = MSDecodeState.PAUSE;
                     }
                 }
 
                 //【解码步骤：6. 判断解码是否完成】
                 if (mBufferInfo.flags == MediaCodec.BUFFER_FLAG_END_OF_STREAM) {
                     Log.i(TAG, "解码结束");
-                    mState = DecodeState.FINISH;
-                    mStateListener.decoderFinish(this);
+                    mState = MSDecodeState.FINISH;
+                    if (mStateListener != null) {
+                        mStateListener.decoderFinish(this);
+                    }
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-
 
 
     private void sleepRender() {
@@ -254,17 +266,17 @@ public abstract class BaseDecoder implements IDecoder {
     private int pullBufferFromDecoder() {
         // 查询是否有解码完成的数据，index >=0 时，表示数据有效，并且index为缓冲区索引
         int index = mCodec.dequeueOutputBuffer(mBufferInfo, 1000);
-        if (index==MediaCodec.INFO_OUTPUT_FORMAT_CHANGED){
+        if (index == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
 
-        }else if (index==MediaCodec.INFO_TRY_AGAIN_LATER){
+        } else if (index == MediaCodec.INFO_TRY_AGAIN_LATER) {
 
-        }else if ( MediaCodec.INFO_OUTPUT_BUFFERS_CHANGED==index){
+        } else if (MediaCodec.INFO_OUTPUT_BUFFERS_CHANGED == index) {
             mOutputBuffers = mCodec.getOutputBuffers();
         }
         return index;
     }
 
-    protected  boolean pushBufferToDecoder(){
+    protected boolean pushBufferToDecoder() {
         int inputBufferIndex = mCodec.dequeueInputBuffer(1000);
         boolean isEndOfStream = false;
         if (inputBufferIndex >= 0) {
@@ -283,16 +295,13 @@ public abstract class BaseDecoder implements IDecoder {
         return isEndOfStream;
     }
 
-    private boolean init() {
-        if (mFilePath.isEmpty() || !new File(mFilePath).exists()) {
+    public boolean init() {
+        if (mFilePath.isEmpty() || !new File(mFilePath).exists() && mStateListener != null) {
             Log.d(TAG, "文件路径为空");
             mStateListener.decoderError(this, "文件路径为空");
             return false;
         }
 
-        if (!check()) {
-            return false;
-        }
 
         //初始化数据提取器
         mExtractor = initExtractor(mFilePath);
@@ -302,6 +311,11 @@ public abstract class BaseDecoder implements IDecoder {
             Log.d(TAG, "无法解析文件");
             return false;
         }
+
+        if (mIDecoderProgress!=null){
+            mIDecoderProgress.videoDuration( mExtractor.getFormat().getLong(MediaFormat.KEY_DURATION));
+        }
+
 
         //初始化参数
         if (!initParams()) {
@@ -329,7 +343,7 @@ public abstract class BaseDecoder implements IDecoder {
     /**
      * 初始化数据提取器
      */
-    public abstract IExtractor initExtractor(String path);
+    public abstract MSIExtractor initExtractor(String path);
 
 
     private boolean initParams() {
@@ -369,7 +383,8 @@ public abstract class BaseDecoder implements IDecoder {
      */
     private void waitDecode() {
         try {
-            if (mState == DecodeState.PAUSE) {
+            Log.d(TAG,"waitDecode----");
+            if (mState == MSDecodeState.PAUSE && mStateListener != null) {
                 mStateListener.decoderPause(this);
             }
             synchronized (mLock) {
@@ -406,8 +421,8 @@ public abstract class BaseDecoder implements IDecoder {
     /**
      * 渲染
      */
-   public abstract void  render(ByteBuffer outputBuffer ,
-                        MediaCodec.BufferInfo bufferInfo);
+    public abstract void render(ByteBuffer outputBuffer,
+                                MediaCodec.BufferInfo bufferInfo);
 
     /**
      * 结束解码
@@ -419,10 +434,10 @@ public abstract class BaseDecoder implements IDecoder {
      * 通知解码线程继续运行
      */
     protected void notifyDecode() {
-        synchronized(mLock) {
+        synchronized (mLock) {
             mLock.notifyAll();
         }
-        if (mState == DecodeState.DECODING) {
+        if (mState == MSDecodeState.DECODING && mStateListener != null) {
             mStateListener.decoderRunning(this);
         }
     }

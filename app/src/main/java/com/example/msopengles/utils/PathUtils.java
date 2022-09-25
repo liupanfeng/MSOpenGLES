@@ -8,12 +8,10 @@ import com.example.msopengles.App;
 import java.io.File;
 
 /**
- * * All rights reserved,Designed by www.meishesdk.com
  *
  * @Author : lpf
  * @CreateDate : 2022/6/13 上午10:41
  * @Description : 路径工具类
- * @Copyright :www.meishesdk.com Inc.All rights reserved.
  */
 public class PathUtils {
 

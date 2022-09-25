@@ -12,7 +12,7 @@ import java.nio.ByteBuffer;
  * @Description: 媒体提取器接口
  * @Copyright: www.meishesdk.com Inc. All rights reserved.
  */
-public interface IExtractor {
+public interface MSIExtractor {
 
     /**
      * 获取媒体格式

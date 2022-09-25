@@ -8,11 +8,11 @@ package com.example.video.inter;
  * @Description:
  * @Copyright: www.meishesdk.com Inc. All rights reserved.
  */
-public interface IDecoder extends Runnable{
+public interface MSIDecoder extends Runnable{
 
     void pause();
 
-    void goOn();
+    void startPlay();
 
    long  seekTo(long position);
 
@@ -29,8 +29,8 @@ public interface IDecoder extends Runnable{
     /**
      * 设置尺寸监听器
      */
-   void setSizeListener(IDecoderProgress iDecoderProgress);
+   void setSizeListener(MSIDecoderProgress iDecoderProgress);
 
 
-   void setStateListener();
+   void setStateListener(MSIDecoderStateListener decoderStateListener);
 }

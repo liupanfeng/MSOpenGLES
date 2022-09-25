@@ -8,7 +8,7 @@ package com.example.video.muxer;
  * @Description:
  * @Copyright: www.meishesdk.com Inc. All rights reserved.
  */
-public class MMuxer {
+public class MSMuxer {
 
 
 }

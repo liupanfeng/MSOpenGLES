@@ -8,7 +8,7 @@ package com.example.video.inter;
  * @Description:
  * @Copyright: www.meishesdk.com Inc. All rights reserved.
  */
-public interface IDecoderProgress {
+public interface MSIDecoderProgress {
 
     /**
      * 视频宽高选装角度回调
@@ -20,6 +20,13 @@ public interface IDecoderProgress {
      * 视频播放进度回调
      */
     void videoProgressChange(long position);
+
+
+    /**
+     * 获取视频资源总时长
+     * @param duration
+     */
+    void videoDuration(long duration);
 
 
 }

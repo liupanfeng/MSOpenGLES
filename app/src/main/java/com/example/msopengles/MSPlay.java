@@ -10,12 +10,10 @@ import com.example.msopengles.utils.PathUtils;
 import java.io.File;
 
 /**
- * All rights Reserved, Designed By www.meishesdk.com
  *
  * @Author: lpf
  * @CreateDate: 2022/7/5 下午12:07
  * @Description:
- * @Copyright: www.meishesdk.com Inc. All rights reserved.
  */
 public class MSPlay extends GLSurfaceView implements Runnable, SurfaceHolder.Callback {
 

@@ -14,6 +14,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MSOpenGLES">
+
+        <activity android:name="com.example.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
         <activity
             android:name="com.example.video.VideoPlayByMediaCodecActivity"
             android:exported="false" />
@@ -25,13 +35,9 @@
             android:name=".activity.CommonActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".OpenGLESMenuActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
