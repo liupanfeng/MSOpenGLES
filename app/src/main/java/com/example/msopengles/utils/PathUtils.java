@@ -29,6 +29,8 @@ public class PathUtils {
 
     private static final String LOCAL_VIDEO_PATH = SDK_FILE_ROOT_DIRECTORY + "video";
 
+    private static final String REPACK_VIDEO_PATH = SDK_FILE_ROOT_DIRECTORY + "repack_video";
+
     /**
      * 删除文件
      * @param filePath
@@ -100,6 +102,14 @@ public class PathUtils {
 
     public static String getLocalVideoDir() {
         String dstDirPath = getFolderDirPath(LOCAL_VIDEO_PATH);
+        if (dstDirPath == null) {
+            return null;
+        }
+        return dstDirPath;
+    }
+
+    public static String getRepackVideoDir() {
+        String dstDirPath = getFolderDirPath(REPACK_VIDEO_PATH);
         if (dstDirPath == null) {
             return null;
         }
