@@ -21,7 +21,7 @@ import java.nio.ByteBuffer;
  */
 public class MSMuxer {
 
-    private static final String TAG = "MSMuxer";
+    private static final String TAG = "lpf";
 
     private String mFilePath;
     /**
@@ -53,6 +53,8 @@ public class MSMuxer {
         String fileName = "ms_repack_video.mp4";
         String fileDirPath = PathUtils.getRepackVideoDir();
         mFilePath = fileDirPath + File.separator + fileName;
+        Log.d(TAG, "合成视频的路径是："+mFilePath);
+
         /**
          * 指定输入文件的名称以及路径
          * 指定输出文件的格式

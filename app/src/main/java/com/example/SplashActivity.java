@@ -10,6 +10,10 @@ import com.example.msopengles.OpenGLESMenuActivity;
 import com.example.msopengles.R;
 import com.example.video.MSVideoMenuActivity;
 
+import java.lang.ref.Reference;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -30,5 +34,33 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(new Intent(SplashActivity.this, MSVideoMenuActivity.class));
             }
         });
+
+
+//        Object obj = new Object();
+//
+//        ReferenceQueue referenceQueue = new ReferenceQueue();
+//
+//        WeakReference weakReference = new WeakReference(obj, referenceQueue);  //被回收之后会进入引用队列
+//
+//        System.out.println("weakReference=" + weakReference);
+//
+//        Runtime.getRuntime().gc();   //让可以回收的对象回收
+//
+//        obj=null;
+//        try {
+//            Thread.sleep(10000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Reference findRef=null;
+//
+//        do {
+//            findRef=referenceQueue.poll();
+//            System.out.println("findRef="+findRef+" 是否等于weakReference="+(findRef==weakReference));
+//        }while (findRef!=null);
+
+
+
     }
 }

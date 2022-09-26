@@ -16,8 +16,10 @@ import com.example.msopengles.utils.PathUtils;
 import com.example.video.decode.MSAudioDecoder;
 import com.example.video.decode.MSVideoDecoder;
 import com.example.video.inter.MSIDecoderProgress;
+import com.example.video.muxer.MSMP4Repack;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -94,7 +96,7 @@ public class VideoPlayByMediaCodecActivity extends AppCompatActivity {
 
             @Override
             public void videoProgressChange(long position) {
-                Log.d("lpf", "position=" + position);
+//                Log.d("lpf", "position=" + position);
                 updateProgress(position);
             }
 
@@ -144,4 +146,13 @@ public class VideoPlayByMediaCodecActivity extends AppCompatActivity {
         return hh > 0 ? String.format("%02d:%02d:%02d", hh, mm, ss) : String.format("%02d:%02d", mm, ss);
     }
 
+
+    public void clickRepack(View view) {
+        try {
+            MSMP4Repack msmp4Repack=new MSMP4Repack(mVideoPath);
+            msmp4Repack.startRepack();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
