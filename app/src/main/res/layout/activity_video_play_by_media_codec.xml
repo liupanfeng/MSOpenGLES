@@ -86,6 +86,7 @@
         android:layout_marginTop="12dp"
         android:text="视频重新合成"
         android:onClick="clickRepack"
+        android:layout_gravity="center_horizontal"
         />
 
 </LinearLayout>
