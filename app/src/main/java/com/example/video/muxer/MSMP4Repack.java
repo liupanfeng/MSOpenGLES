@@ -32,55 +32,55 @@ public class MSMP4Repack {
     private MSVideoExtractor mMSVideoExtractor;
     private MSMuxer mMSMuxer;
 
-    public MSMP4Repack(String mFilePath) throws IOException {
-        this.mFilePath = mFilePath;
+    public MSMP4Repack(String filePath) throws IOException {
+        this.mFilePath = filePath;
         mMSAudioExtractor = new MSAudioExtractor(mFilePath);
         mMSVideoExtractor = new MSVideoExtractor(mFilePath);
-        mMSMuxer=new MSMuxer();
+        mMSMuxer = new MSMuxer();
     }
 
 
-    public void startRepack(){
+    public void startRepack() {
         MediaFormat msVideoExtractorFormat = mMSVideoExtractor.getFormat();
         MediaFormat msAudioExtractorFormat = mMSAudioExtractor.getFormat();
-        if (msVideoExtractorFormat!=null){
+        if (msVideoExtractorFormat != null) {
             mMSMuxer.addVideoTrack(msVideoExtractorFormat);
-        }else{
+        } else {
             mMSMuxer.setNoVideo();
         }
-        if (msAudioExtractorFormat!=null){
+        if (msAudioExtractorFormat != null) {
             mMSMuxer.addAudioTrack(msAudioExtractorFormat);
-        }else {
+        } else {
             mMSMuxer.setNoAudio();
         }
 
         Observable.just(1).map(new Function<Integer, Object>() {
             @Override
             public Object apply(Integer integer) throws Exception {
-                Log.d("lpf","apply threadName="+Thread.currentThread().getName());
+                Log.d("lpf", "apply threadName=" + Thread.currentThread().getName());
                 ByteBuffer buffer = ByteBuffer.allocate(500 * 1024);
                 MediaCodec.BufferInfo bufferInfo = new MediaCodec.BufferInfo();
-                if (msAudioExtractorFormat!=null){
+                if (msAudioExtractorFormat != null) {
                     int size = mMSAudioExtractor.readBuffer(buffer);
-                    while (size>0){
-                        bufferInfo.set(0,size,mMSAudioExtractor.getCurrentTimestamp(),mMSAudioExtractor.getSampleFlag());
-                        mMSMuxer.writeAudioData(buffer,bufferInfo);
-                        size=mMSAudioExtractor.readBuffer(buffer);
+                    while (size > 0) {
+                        bufferInfo.set(0, size, mMSAudioExtractor.getCurrentTimestamp(), mMSAudioExtractor.getSampleFlag());
+                        mMSMuxer.writeAudioData(buffer, bufferInfo);
+                        size = mMSAudioExtractor.readBuffer(buffer);
                     }
                 }
 
-                if (msVideoExtractorFormat!=null){
-                    int size=mMSVideoExtractor.readBuffer(buffer);
-                    while (size>0){
-                        bufferInfo.set(0,size,mMSVideoExtractor.getCurrentTimestamp(),mMSVideoExtractor.getSampleFlag());
-                        mMSMuxer.writeVideoData(buffer,bufferInfo);
-                        size=mMSVideoExtractor.readBuffer(buffer);
+                if (msVideoExtractorFormat != null) {
+                    int size = mMSVideoExtractor.readBuffer(buffer);
+                    while (size > 0) {
+                        bufferInfo.set(0, size, mMSVideoExtractor.getCurrentTimestamp(), mMSVideoExtractor.getSampleFlag());
+                        mMSMuxer.writeVideoData(buffer, bufferInfo);
+                        size = mMSVideoExtractor.readBuffer(buffer);
                     }
                 }
                 mMSAudioExtractor.stop();
                 mMSVideoExtractor.stop();
 
-                mMSMuxer.releaseAudioTrack();
+                mMSMuxer.releaseVideoTrack();
                 mMSMuxer.releaseAudioTrack();
 
                 return 1;
@@ -88,7 +88,7 @@ public class MSMP4Repack {
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnNext(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
-                Log.d("lpf","accept threadName="+Thread.currentThread().getName()+"  视频合成成功");
+                Log.d("lpf", "accept threadName=" + Thread.currentThread().getName() + "  视频合成成功");
             }
         }).subscribe();
 
