@@ -1,5 +1,7 @@
 package com.example.video.inter;
 
+import com.example.video.base.MSBaseEncoder;
+
 /**
  * All rights Reserved, Designed By www.meishesdk.com
  *
@@ -9,4 +11,8 @@ package com.example.video.inter;
  * @Copyright: www.meishesdk.com Inc. All rights reserved.
  */
 public interface MSIEncodeStateListener {
+    void encodeStart(MSBaseEncoder encoder);
+    void encodeProgress(MSBaseEncoder encoder);
+    void encoderFinish(MSBaseEncoder encoder);
+
 }

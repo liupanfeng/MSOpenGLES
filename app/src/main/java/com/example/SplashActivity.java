@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.capture.MSCaptureActivity;
 import com.example.msopengles.OpenGLESMenuActivity;
 import com.example.msopengles.R;
 import com.example.video.MSVideoMenuActivity;
@@ -35,6 +36,13 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
 
+
+        findViewById(R.id.btn_camera2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SplashActivity.this, MSCaptureActivity.class));
+            }
+        });
 
 //        Object obj = new Object();
 //
