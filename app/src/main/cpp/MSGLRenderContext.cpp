@@ -138,6 +138,9 @@ void MSGLRenderContext::SetParamsInt(int paramType, int value0, int value1) {
             case SAMPLE_TYPE_KEY_BASIC_LIGHTING:
                 m_pCurSample = new BasicLightingSample();
                 break;
+            case SAMPLE_TYPE_KEY_VAO:
+                m_pCurSample = new MSVAOExample();
+                break;
 
         }
     }

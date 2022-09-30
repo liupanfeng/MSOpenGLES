@@ -44,6 +44,15 @@
         />
 
     <Button
+        android:id="@+id/btn_load_vao"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="VAO 和 VBO"
+        android:layout_marginTop="16dp"
+        />
+
+    <Button
         android:id="@+id/btn_load_fbo"
         android:layout_width="200dp"
         android:layout_height="wrap_content"

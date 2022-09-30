@@ -77,6 +77,7 @@ public class OpenGLESMenuActivity extends AppCompatActivity implements View.OnCl
         mBinding.btnLoadNv21.setOnClickListener(this);
         mBinding.btnLoadFbo.setOnClickListener(this);
         mBinding.btnLoadBasicLight.setOnClickListener(this);
+        mBinding.btnLoadVao.setOnClickListener(this);
     }
 
     public native String stringFromJNI();
@@ -95,6 +96,9 @@ public class OpenGLESMenuActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.btn_texture_view:
                 startActivity(new Intent(OpenGLESMenuActivity.this,LiveCameraActivity.class));
+                break;
+            case R.id.btn_load_vao:
+                CommonActivity.actionCommonActivity(OpenGLESMenuActivity.this,SAMPLE_TYPE_VAO);
                 break;
             default:
                 break;

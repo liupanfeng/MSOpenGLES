@@ -63,6 +63,9 @@ public class CommonActivity extends AppCompatActivity {
                 setVAndFShader(R.raw.vertex_nv21_texture_map, R.raw.fragment_nv21_texture_map);
                 loadNV21Image();
                 break;
+            case SAMPLE_TYPE_VAO:
+                setVAndFShader(R.raw.vertex_vao, R.raw.fragment_vao);
+                break;
             case SAMPLE_TYPE_FBO:
                 Bitmap bitmap = loadRGBAImage(R.mipmap.girl);
                 mMSGLSurfaceView.postDelayed(new Runnable() {

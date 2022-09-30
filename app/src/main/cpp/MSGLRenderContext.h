@@ -14,6 +14,7 @@
 #include "NV21TextureMapSample.h"
 #include "FBOSample.h"
 #include "BasicLightingSample.h"
+#include "MSVAOExample.h"
 
 
 class MSGLRenderContext {

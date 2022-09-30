@@ -14,7 +14,7 @@
         <entry key="app/src/main/res/drawable/ic_switch_filter.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_switch_filter_btn.xml" value="0.1095" />
         <entry key="app/src/main/res/layout/activity_common.xml" value="0.22708333333333333" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.5349544072948328" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_mscapture.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/activity_play_yuvactivity.xml" value="0.2609375" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.26927083333333335" />
