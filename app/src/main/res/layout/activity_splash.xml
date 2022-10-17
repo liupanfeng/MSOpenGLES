@@ -32,4 +32,20 @@
         android:layout_marginTop="20dp"
         />
 
+    <Button
+        android:id="@+id/btn_opengl_es_2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="OpenGLES 特效2"
+        android:layout_marginTop="20dp"
+        />
+
+    <Button
+        android:id="@+id/btn_show_ffmpeg"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="展示ffmpeg内容"
+        android:layout_marginTop="20dp"
+        />
+
 </LinearLayout>

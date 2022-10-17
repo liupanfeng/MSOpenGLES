@@ -104,3 +104,4 @@ Java_com_example_msopengles_opengles_MSNativeRender_native_1UpdateTransformMatri
 
     MSGLRenderContext::GetInstance()->UpdateTransformMatrix(rotate_x,rotate_y,scale_x,scale_y);
 }
+
